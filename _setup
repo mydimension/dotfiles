@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+foreach (qw(bashrc aliasrc dirsrc inputrc perltidyrc screenrc gitconfig)) {
+	if (-f "~/.$_") {
+		warn "~/.$_ already exists\n";
+	} else {
+		system "ln -s dotfiles/$_ ~/.$_";
+	}
+}
