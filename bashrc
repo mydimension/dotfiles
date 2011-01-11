@@ -6,6 +6,9 @@
 # Source global definitions
 [ -f /etc/bashrc ]         && . /etc/bashrc
 
+# source a local bashrc, if any
+[ -f ~/.bashrc.local ] && . ~/.bashrc.local 
+
 ulimit -S -c 0
 set -o notify
 #set -o noclobber # this is annoying
@@ -99,9 +102,6 @@ export EDITOR=vim
 
 # implement directory history
 [ -f ~/.dirsrc ] && . ~/.dirsrc
-
-# source a local bashrc, if any
-[ -f ~/.bashrc.local ] && . ~/.bashrc.local 
 
 # set the window title
 function xtitle () {
