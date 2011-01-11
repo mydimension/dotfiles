@@ -1,13 +1,6 @@
 # vim: syn=sh
 # User specific aliases and functions
 
-# EIG specific
-alias bastion='ssh -L 2200:st-admin:22 -At -p 1022 wcox@bast01.endint.com'
-alias sysadmin='bastion ssh sysadmin01'
-alias stage-mount='sshfs wcox@localhost:/home/logins/wcox /Users/william/st-admin/ -o port=2200,follow_symlinks,idmap=user,auto_cache,volname=st-admin'
-alias stage-umount='umount /Users/william/st-admin/'
-# /EIG
-
 alias jobs='jobs -l'
 alias j='jobs'
 alias grep='grep --color'

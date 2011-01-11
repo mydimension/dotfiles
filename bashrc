@@ -58,9 +58,9 @@ NC="\[\e[0m\]";
 
 if [ "`id -u`" -eq 0 ]; then
 	if type __git_ps1 >/dev/null 2>&1; then
-		PS1="${DARKGRAY}[${RED}\u${DARKGRAY}@$BLUE\h${DARKGRAY}:${BROWN}\W${DARKGRAY}]${GREEN}$(__git_ps1 " (%s) ")${WHITE}\\$ ${NC}"
+		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}$(__git_ps1 " (%s) ")${RED}\\$ ${NC}"
 	else
-		PS1="${DARKGRAY}[${RED}\u${DARKGRAY}@$BLUE\h${DARKGRAY}:${BROWN}\W${DARKGRAY}]${WHITE}\\$ ${NC}"
+		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
 	fi
 
 	#Escape for screen
@@ -74,9 +74,9 @@ if [ "`id -u`" -eq 0 ]; then
 	esac
 else
 	if type __git_ps1 >/dev/null 2>&1; then
-		PS1="${DARKGRAY}[${GREEN}\u${DARKGRAY}@$BLUE\h${DARKGRAY}:${BROWN}\W${DARKGRAY}]${GREEN}$(__git_ps1 " (%s) ")${WHITE}\\$ ${NC}"
+		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}$(__git_ps1 " (%s) ")${GREEN}\\$ ${NC}"
 	else
-		PS1="${DARKGRAY}[${GREEN}\u${DARKGRAY}@$BLUE\h${DARKGRAY}:${BROWN}\W${DARKGRAY}]${WHITE}\\$ ${NC}"
+		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${GREEN}\\$ ${NC}"
 	fi
 
 	#Escape for screen
@@ -95,14 +95,13 @@ export CDPATH=".:~"
 export EDITOR=vim
 
 # get aliases
-if [ -f ~/.aliasrc ]; then
-	. ~/.aliasrc
-fi
+[ -f ~/.aliasrc ] && . ~/.aliasrc
 
 # implement directory history
-if [ -f ~/.dirsrc ]; then
-	. ~/.dirsrc
-fi
+[ -f ~/.dirsrc ] && . ~/.dirsrc
+
+# source a local bashrc, if any
+[ -f ~/.baschrc.local ] && . ~/.bashrc.local 
 
 # set the window title
 function xtitle () {
