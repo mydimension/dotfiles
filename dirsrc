@@ -1,0 +1,193 @@
+# vim: syn=sh
+#
+# FROM:
+# http://www.debian-administration.org/articles/130#comment_62
+#
+# put this in your .bashrc to see how it works
+# I tried to make useful comments
+# but you are welcome to delete them
+
+
+# -----SECTION: Moving through directories --------
+
+# declaring variables
+export dirarr dircnt dirarr_fhist dircnt_fhist
+
+# dirarr is where I keep visited directories (no duplicates)
+# dircnt is its length, ${#arr} was giving me some trouble
+# dirarr_fhist a an array of forward history
+
+if [ -z $dircnt ]; then
+	dircnt="1"
+	dirarr=("`pwd`")
+fi
+
+if [ -z $dircnt_fhist ]; then
+	dircnt_fhist="0"
+	dirarr_fhist=
+fi
+
+# some aliases that will save us the trouble of too much typing
+alias cd='push'
+alias p='push'
+alias o='pop'
+alias c='choose'
+alias dir='dir_utility'
+
+# 'cd' command togglers
+function plain_dir () { unalias cd;        }
+function cool_dir  () { alias   cd='push'; }
+
+# loads and saves history,
+# lists and chooses directories
+function dir_utility() {
+	case "$@" in
+		s|sa|sav|save)              save_dirhist ;;
+		lo|loa|load)                load_dirhist ;;
+		l|li|lis|list)              dirl         ;;
+		c|ch|cho|choo|choos|choose) choose       ;;
+		cl|cle|clea|clear)          clear_hist   ;;
+		*)                          \dir "$@"    ;;
+	esac
+}
+
+# Used by push() function (see below)
+function pop() { popd "$@" > /dev/null; }
+
+# This is where 'cd' command is parsed
+function push() {
+	case "$@" in
+		"")
+			pushd ~ > /dev/null
+			;;
+		"-") # going backward in history
+			prevdir="`pwd`"
+			popd > /dev/null
+			dirarr_fhist[$dircnt_fhist]=$prevdir
+			((dircnt_fhist++))
+			;;
+		"+"|"=") # going forwards in history
+			if [ "$dircnt_fhist" == "0" ]; then
+				echo "Forward list empty"
+				return 1
+			fi
+			((dircnt_fhist--))
+			dir=${dirarr_fhist[$dircnt_fhist]}
+			if [ ! -z $dir ]; then
+				pushd "$dir" > /dev/null
+			fi
+			;;
+			
+		*) # parsing cd
+			if [ -a "$@" ]; then
+				pushd "$@" > /dev/null
+				clear_fhist
+				curdir="`pwd`"
+				for ((i="0"; $i < $dircnt; i++)) ; do
+					if [ "${dirarr[$i]}" == "$curdir" ]; then
+						return
+					fi
+				done
+				dirarr[$dircnt]="$curdir"
+				#dircnt=$((++dircnt))
+				((dircnt++))
+			else
+				cdpartial "$@"
+			fi
+			;;
+	esac
+	export dirarr dircnt
+	export dirarr_fhist dircnt_fhist
+}
+
+# list history
+function dirl() {
+	for ((i="0"; $i < $dircnt; i++)) ; do
+		if [ "$1" == "-n" ]; then
+			echo -e "${dirarr[$i]}\n"
+		else
+			echo "${dirarr[$i]}"
+		fi
+	done
+}
+
+# choose a directory from history
+function choose() {
+	if [ ! -z "$1" ]; then
+		if (( $1 >= 1 && $1 <= $dircnt )); then
+			num=$1;
+			((num--))
+			pushd "${dirarr[$num]}" > /dev/null
+			clear_fhist
+			return 0
+		fi
+	fi
+	
+	# make IFS take \n as a separator
+	IFS="
+"
+	PS3="jump to directory # "
+	select dir_ans in `dirl -n`
+	do
+		if [ ! -z $dir_ans ]; then
+			pushd "$dir_ans" > /dev/null
+			clear_fhist
+			break
+		fi
+	done
+}
+
+# save history
+function save_dirhist() { dirl | sort > ~/.dirhistory; }
+
+#load history
+function load_dirhist() {
+	# this should go to .bash_login
+	if [ -r ~/.dirhistory ]; then
+		# TODO Test validity of directories
+		#cat .dirhistory | while read line
+		#do
+		# echo $line
+		#done
+		IFS="
+"
+		dirarr=(`cat ~/.dirhistory`)
+		#dircnt=${#dirarr} #NOT WORKING
+		dircnt="`cat ~/.dirhistory|wc -l`"
+	fi
+}
+
+# find a directory in History based on a partial string
+function cdpartial() {
+	if [ $dircnt -eq 0 ]; then
+		return
+	fi
+	
+	for ((i="0"; $i < $dircnt; i++)); do
+		regexp="$@[^/]*$"
+		if [ `echo ${dirarr[$i]} | grep -i -E $regexp | wc -l` -gt 0 ]; then
+			\cd ${dirarr[$i]}
+			clear_fhist
+			return
+		fi
+	done
+	echo "$@: directory not found"
+}
+
+# clears forward history
+function clear_fhist() {
+	dirarr_fhist=
+	dircnt_fhist="0"
+}
+
+# clears history
+function clear_hist() {
+	dirarr=("`pwd`")
+	dircnt="0"
+}
+
+# loads history in .bashrc
+load_dirhist
+
+# -----END SECTION: Moving through directories --------
+

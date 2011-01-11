@@ -1,0 +1,121 @@
+# vim: syn=sh
+# User specific aliases and functions
+
+# EIG specific
+alias bastion='ssh -L 2200:st-admin:22 -At -p 1022 wcox@bast01.endint.com'
+alias sysadmin='bastion ssh sysadmin01'
+alias stage-mount='sshfs wcox@localhost:/home/logins/wcox /Users/william/st-admin/ -o port=2200,follow_symlinks,idmap=user,auto_cache,volname=st-admin'
+alias stage-umount='umount /Users/william/st-admin/'
+# /EIG
+
+alias jobs='jobs -l'
+alias j='jobs'
+alias grep='grep --color'
+alias w='w -u'
+alias view='vi -R'
+alias path='echo -e ${PATH//:/\\n}'
+
+[ -f /Applications/MacVim.app/Contents/MacOS/Vim ] &&
+	alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
+
+#alias screen='screen-ssh-agent ; screen'
+#alias fixssh=". $HOME/.screen/session-variables"
+#alias s='fixssh; ssh'
+
+# a slightly cleaner approach to what the above is doing.
+# now just use the following in .screenrc:
+#	unsetenv SSH_AUTH_SOCK
+#	setenv SSH_AUTH_SOCK $HOME/.screen/ssh-auth-sock.$HOSTNAME
+_ssh_auth_save() {
+	[ -d "$HOME/.screen/" ] || mkdir -m 700 "$HOME/.screen/";
+	if [ "$SSH_AUTH_SOCK" != "$HOME/.screen/ssh-auth-sock.$HOSTNAME" ] ; then
+		ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen/ssh-auth-sock.$HOSTNAME"
+	fi
+}
+alias screen='_ssh_auth_save ; export HOSTNAME=$(hostname) ; screen'
+
+# 'ls' family
+if [ "$TERM" != "dumb" ]; then
+	export LS_OPTIONS='--color=always'
+	eval `dircolors`
+fi
+alias ls='ls -hFv $LS_OPTIONS'
+alias ll='ls -l'
+alias la='ls -Al'
+alias l='la'
+alias lx='ls -lXB'
+alias lk='ls -lSr'
+alias lc='ls -lcr'
+alias lu='ls -lur'
+alias lt='ls -ltr'
+
+alias tree='tree --dirsfirst -FI .svn'
+
+# hex dump a file
+alias hd='od -Ax -tx1z -v'
+alias realpath='readlink -f'
+
+alias cmdstat="history | awk {'print \$2'} | sort | uniq -c | sort -k1 -rn | head"
+
+#alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde --read-functions'
+
+# number base conversions
+alias d2h="perl -e 'printf qq|%X\n|, int( shift )'"
+alias d2o="perl -e 'printf qq|%o\n|, int( shift )'"
+alias d2b="perl -e 'printf qq|%b\n|, int( shift )'"
+alias h2d="perl -e 'printf qq|%d\n|, hex( shift )'"
+alias h2o="perl -e 'printf qq|%o\n|, hex( shift )'"
+alias h2b="perl -e 'printf qq|%b\n|, hex( shift )'"
+alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
+alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
+alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
+
+# Misc.
+ff ()       { find . -type f -iname '*'$*'*' -ls ; }
+fe ()       { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
+
+swap ()     { local TMPFILE="tmp.$$"; mv "$1" $TMPFILE; mv "$2" "$1"; mv $TMPFILE "$2"; }
+
+md ()       { mkdir -p $1 && cd $1; }
+lll ()      { ll $* | less; }
+unixdate () { echo `perl -MHTTP::Date -e 'print @ARGV?$ARGV[0]=~/^\d+$/?scalar localtime($ARGV[0]):str2time(join " ",@ARGV):time' ${*}`; }
+
+cssmin () {
+	cat $1 | sed -e '
+		s/^[ \t]*//g;       # remove leading space
+		s/[ \t]*$//g;       # remove trailing space
+		s/\([:{;,]\) /\1/g; # remove space after a colon, brace, semicolon, or comma
+		s/ {/{/g;           # remove space before a brace
+		s/\/\*.*\*\///g;    # remove comments
+		/^$/d               # remove blank lines
+	' | sed -e :a -e '$!N; s/\n\(.\)/\1/; ta # remove all newlines
+	' > $2;
+}
+
+ex () {
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2|*.tbz2) tar xjf $1    ;;
+			*.tar.gz|*.tgz)   tar xzf $1    ;;
+			*.tar)            tar xf $1     ;;
+			*.bz2)            bunzip2 $1    ;;
+			*.rar)            rar x $1      ;;
+			*.gz)             gunzip $1     ;;
+			*.zip)            unzip $1      ;;
+			*.Z)              uncompress $1 ;;
+			*.7z)             7z x $1       ;;
+			*)                echo "'$1' cannot be extracted via ex()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
+
+function calc() { echo "$*" | bc; }
+
+#tailor 'less'
+alias more='less'
+export PAGER=less
+#export LESSCHARSET='latin1'
+export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'
+export LESS='-i -w -z-4 -g -M -X -F -R -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'

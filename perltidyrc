@@ -1,0 +1,21 @@
+-pbp    # use perl best practices defaults
+        # with some modifiers
+        # esentially this:
+        # -l=78 -i=4 -ci=4 -st -se -vt=2 -cti=0 -pt=1 -bt=1 -sbt=1 -bbt=1 -nsfs -nolq
+        # -wbb="% + - * / x != == >= <= =~ !~ < > │ & >= < =
+        #       **= += *= &= <<= &&= -= /= │= >>= ││= .= %= ^= x="
+
+-l=80   # 80 columns per line
+-et=4   # use tabs instead of spaces
+-pt=2   # parens are tight
+-sbt=2  # sqaure brackets are tight
+-bbt=0  # block braces are semi-tight
+-nola   # don't outdent labels
+-ce     # keep else on same line as previous closing brace
+-bar    # opening braces always on right
+-nbbc   # don't force blanks before comments
+-nolc   # do not outdent long comments
+-ci=2   # continuing indentation will use 2 spaces
+-vt=0   # minimal vertical tightness
+-cti=1  # some extra indentation for closing brackets
+-kis    # a single line multi-statement will keep it's semicolon and not break

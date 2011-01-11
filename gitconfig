@@ -1,0 +1,12 @@
+[user]
+	name = William Cox
+	email = mydimension@gmail.com
+[alias]
+	ci = commit
+	st = status
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	autocrlf = input
