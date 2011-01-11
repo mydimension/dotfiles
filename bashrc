@@ -101,7 +101,7 @@ export EDITOR=vim
 [ -f ~/.dirsrc ] && . ~/.dirsrc
 
 # source a local bashrc, if any
-[ -f ~/.baschrc.local ] && . ~/.bashrc.local 
+[ -f ~/.bashrc.local ] && . ~/.bashrc.local 
 
 # set the window title
 function xtitle () {
