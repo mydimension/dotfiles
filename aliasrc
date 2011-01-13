@@ -7,6 +7,7 @@ alias grep='grep --color'
 alias w='w -u'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
+alias vi='vim'
 
 [ -f /Applications/MacVim.app/Contents/MacOS/Vim ] &&
 	alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"

@@ -59,9 +59,15 @@ BROWN="\[\e[0;33m\]";
 LIGHTBROWN="\[\e[1;33m\]";
 NC="\[\e[0m\]";
 
+function function_exists {
+	[ -z "$1" ] && return 1
+	declare -F "$1" >/dev/null 2>&1
+	return $?
+}
+
 if [ "`id -u`" -eq 0 ]; then
-	if type __git_ps1 >/dev/null 2>&1; then
-		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}$(__git_ps1 " (%s) ")${RED}\\$ ${NC}"
+	if function_exists __git_ps1; then
+		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${RED}\\$ ${NC}"
 	else
 		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
 	fi
@@ -76,8 +82,8 @@ if [ "`id -u`" -eq 0 ]; then
 		;;
 	esac
 else
-	if type __git_ps1 >/dev/null 2>&1; then
-		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}$(__git_ps1 " (%s) ")${GREEN}\\$ ${NC}"
+	if function_exists __git_ps1; then
+		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${GREEN}\\$ ${NC}"
 	else
 		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${GREEN}\\$ ${NC}"
 	fi
