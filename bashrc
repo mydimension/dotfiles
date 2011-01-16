@@ -65,40 +65,6 @@ function function_exists {
 	return $?
 }
 
-if [ "`id -u`" -eq 0 ]; then
-	if function_exists __git_ps1; then
-		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${RED}\\$ ${NC}"
-	else
-		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
-	fi
-
-	#Escape for screen
-	case $TERM in
-		xterm*|rxvt*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033]0; root@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-		;;
-		screen*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033k root@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-		;;
-	esac
-else
-	if function_exists __git_ps1; then
-		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${GREEN}\\$ ${NC}"
-	else
-		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${GREEN}\\$ ${NC}"
-	fi
-
-	#Escape for screen
-	case $TERM in
-		xterm*|rxvt*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-		;;
-		screen*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-		;;
-	esac
-fi
-export PS1
 export HISTIGNORE="&:ls:ll:lll:w"
 export CDPATH=".:~"
 export EDITOR=vim
@@ -141,3 +107,39 @@ fi
 
 shopt -s extglob
 set +o nounset
+
+# needs to run after bash completion is loaded
+if [ "`id -u`" -eq 0 ]; then
+	if function_exists __git_ps1; then
+		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${RED}\\$ ${NC}"
+	else
+		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
+	fi
+
+	#Escape for screen
+	case $TERM in
+		xterm*|rxvt*)
+			export PROMPT_COMMAND='history -a; echo -ne "\033]0; root@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		;;
+		screen*)
+			export PROMPT_COMMAND='history -a; echo -ne "\033k root@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		;;
+	esac
+else
+	if function_exists __git_ps1; then
+		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${GREEN}\\$ ${NC}"
+	else
+		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${GREEN}\\$ ${NC}"
+	fi
+
+	#Escape for screen
+	case $TERM in
+		xterm*|rxvt*)
+			export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		;;
+		screen*)
+			export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		;;
+	esac
+fi
+export PS1
