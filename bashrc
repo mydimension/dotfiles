@@ -100,46 +100,29 @@ if [ "${BASH_VERSION%.*}" \< "2.05" ]; then
 	return
 fi
 
-[ -f /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
-if [ -x /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
-fi
+[ -x /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
+[ -x /etc/bash_completion           ] && . /etc/bash_completion
 
 shopt -s extglob
 set +o nounset
 
+user_color="${GREEN}"
+[ "`id -u`" -eq 0 ] && user_color="${RED}"
+
 # needs to run after bash completion is loaded
-if [ "`id -u`" -eq 0 ]; then
-	if function_exists __git_ps1; then
-		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${RED}\\$ ${NC}"
-	else
-		PS1="${WHITE}[${RED}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
-	fi
-
-	#Escape for screen
-	case $TERM in
-		xterm*|rxvt*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033]0; root@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-		;;
-		screen*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033k root@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-		;;
-	esac
+if function_exists __git_ps1; then
+	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${PURPLE}\$(__git_ps1)${WHITE}]${user_color}\\$ ${NC}"
 else
-	if function_exists __git_ps1; then
-		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${PURPLE}\$(__git_ps1 ' (%s) ')${GREEN}\\$ ${NC}"
-	else
-		PS1="${WHITE}[${GREEN}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${GREEN}\\$ ${NC}"
-	fi
-
-	#Escape for screen
-	case $TERM in
-		xterm*|rxvt*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-		;;
-		screen*)
-			export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-		;;
-	esac
+	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
 fi
 export PS1
+
+#Escape for screen
+case $TERM in
+	xterm*|rxvt*)
+		export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+	;;
+	screen*)
+		export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+	;;
+esac
