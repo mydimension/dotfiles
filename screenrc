@@ -8,18 +8,18 @@ startup_message off
 # source $HOME/.ssh/screen_agent
 
 vbell off
-vbell_msg "   --- Ring, Ring!! ---   "
+vbell_msg "   --- !! Ding !! ---   "
 
 # Affects the copying of text regions
   crlf off                                # default: off
 
 # Change default scrollback value for new windows
-  defscrollback 1000                        # default: 100
+  defscrollback 16000                     # default: 100
 
 # Define the time that all windows monitored for silence should 
 # wait before displaying a message. Default 30 seconds.
-  silencewait 15                        # default: 30
-  
+  silencewait 15                          # default: 30
+
   shell -$SHELL
 
 
@@ -39,8 +39,6 @@ bindkey -k k9 screen   # new screen
 bindkey -k k; detach   # detach screen
 bindkey -k F1 prev     # previous window
 bindkey -k F2 next     # next window
-
-defscrollback 16000
 
 # turn on the alternate screen so that quiting apps like vim
 # restores the previous buffer state
@@ -62,6 +60,9 @@ shelltitle "$ | bash"
   termcap  xterm* 'hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l'
   terminfo xterm* 'hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l'
 
+# allow 256 colors
+  termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
 # 80/132 column switching must be enabled for ^AW to work
 # change init sequence to not switch width
   termcapinfo xterm* 'Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
@@ -73,9 +74,9 @@ shelltitle "$ | bash"
 # tell screen that xterm can switch to dark background
   termcapinfo xterm* 'VR=\E[?5h:VN=\E[?5l'
 
-# tell screen that xterm has function keys
-#  termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
-#  termcapinfo xterm 'kh=\EOH:kI=\E[2~:kD=\E[3~:kH=\EOF:kP=\E[5~:kN=\E[6~'
+# tell screen that xterm has function keys -- do not use!!!
+  #termcapinfo xterm* 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+  #termcapinfo xterm* 'kh=\EOH:kI=\E[2~:kD=\E[3~:kH=\EOF:kP=\E[5~:kN=\E[6~'
 
 # special xterm hardstatus: use the window title.
   termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
