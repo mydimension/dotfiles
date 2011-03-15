@@ -4,10 +4,13 @@
 alias jobs='jobs -l'
 alias j='jobs'
 alias grep='grep --color'
-alias w='w -u'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
 alias vi='vim'
+
+if [ "$OSTYPE" != 'darwin10.0' ]; then
+	alias w='w -u'
+fi
 
 [ -f /Applications/MacVim.app/Contents/MacOS/Vim ] &&
 	alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
@@ -43,7 +46,7 @@ alias lc='ls -lcr'
 alias lu='ls -lur'
 alias lt='ls -ltr'
 
-alias tree='tree --dirsfirst -FI .svn'
+alias tree='tree --dirsfirst -FCI .svn'
 
 # hex dump a file
 alias hd='od -Ax -tx1z -v'
