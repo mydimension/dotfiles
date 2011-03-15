@@ -100,8 +100,8 @@ if [ "${BASH_VERSION%.*}" \< "2.05" ]; then
 	return
 fi
 
-[ -x /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
-[ -x /etc/bash_completion           ] && . /etc/bash_completion
+[ -f /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
+[ -x /etc/bash_completion           ] && /etc/bash_completion
 
 shopt -s extglob
 set +o nounset
