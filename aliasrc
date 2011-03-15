@@ -3,7 +3,7 @@
 
 alias jobs='jobs -l'
 alias j='jobs'
-alias grep='grep --color'
+alias grep='grep --color=always'
 alias w='w -u'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
