@@ -113,7 +113,7 @@ user_color="${GREEN}"
 if function_exists __git_ps1; then
 	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${PURPLE}\$(__git_ps1)${WHITE}]${user_color}\\$ ${NC}"
 else
-	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${RED}\\$ ${NC}"
+	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${user_color}\\$ ${NC}"
 fi
 export PS1
 
