@@ -10,3 +10,4 @@
 	branch = auto
 [core]
 	autocrlf = input
+	editor = /usr/bin/vim
