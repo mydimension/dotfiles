@@ -6,7 +6,7 @@
         #       **= += *= &= <<= &&= -= /= │= >>= ││= .= %= ^= x="
 
 -l=80   # 80 columns per line
--et=4   # use tabs instead of spaces
+#-et=4   # use tabs instead of spaces
 -pt=2   # parens are tight
 -sbt=2  # sqaure brackets are tight
 -bbt=0  # block braces are semi-tight
