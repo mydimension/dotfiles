@@ -2,7 +2,7 @@
 	name = William Cox
 	email = mydimension@gmail.com
 [alias]
-	ci = commit
+	co = commit
 	st = status
 [color]
 	diff = auto
