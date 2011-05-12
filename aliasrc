@@ -3,7 +3,7 @@
 
 alias jobs='jobs -l'
 alias j='jobs'
-alias grep='grep --color=always'
+export GREP_OPTIONS="--color=always"
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
 alias vi='vim'
@@ -67,6 +67,8 @@ alias o2h="perl -e 'printf qq|%X\n|, oct( shift )'"
 alias o2d="perl -e 'printf qq|%d\n|, oct( shift )'"
 alias o2b="perl -e 'printf qq|%b\n|, oct( shift )'"
 
+psg ()      { ps aux | egrep "$1|%CPU" | grep -v grep; }
+
 # Misc.
 ff ()       { find . -type f -iname '*'$*'*' -ls ; }
 fe ()       { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
@@ -116,3 +118,4 @@ export PAGER=less
 #export LESSCHARSET='latin1'
 export LESSOPEN='|/usr/bin/lesspipe.sh %s 2>&-'
 export LESS='-i -w -z-4 -g -M -X -F -R -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
+
