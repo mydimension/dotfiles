@@ -109,6 +109,12 @@ set +o nounset
 user_color="${GREEN}"
 [ "`id -u`" -eq 0 ] && user_color="${RED}"
 
+# these control the behavior of __git_ps1
+export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWSTASHSTATE=1
+#export GIT_PS1_SHOWUNTRACKEDFILES=1
+#export GIT_PS1_SHOWUPSTREAM="auto"
+
 # needs to run after bash completion is loaded
 if function_exists __git_ps1; then
 	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${PURPLE}\$(__git_ps1)${WHITE}]${user_color}\\$ ${NC}"

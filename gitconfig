@@ -1,6 +1,6 @@
 [user]
 	name = William Cox
-	email = mydimension@gmail.com
+	email = wcox@blackducksoftware.com
 [alias]
 	co = commit
 	st = status
@@ -10,4 +10,6 @@
 	branch = auto
 [core]
 	autocrlf = input
-	editor = /usr/bin/vim
+	editor = /opt/local/bin/vim
+[merge]
+	tool = opendiff
