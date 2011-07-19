@@ -11,5 +11,14 @@
 [core]
 	autocrlf = input
 	editor = /opt/local/bin/vim
+[diff]
+    tool = vimdiff
+    gui = opendiff
 [merge]
-	tool = opendiff
+    tool = threesome
+    gui = opendiff
+[mergetool]
+    keepBackup = false
+[mergetool "threesome"]
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+    trustExitCode = true
