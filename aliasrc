@@ -28,8 +28,10 @@ _ssh_auth_save() {
 	[ -d "$HOME/.screen/" ] || mkdir -m 700 "$HOME/.screen/";
 	if [ "$SSH_AUTH_SOCK" != "$HOME/.screen/ssh-auth-sock.$HOSTNAME" ] ; then
 		ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen/ssh-auth-sock.$HOSTNAME"
+		export SSH_AUTH_SOCK="$HOME/.screen/ssh-auth-sock.$HOSTNAME"
 	fi
 }
+_ssh_auth_save
 alias screen='_ssh_auth_save ; export HOSTNAME=$(hostname) ; screen'
 
 # 'ls' family
