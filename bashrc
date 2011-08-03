@@ -40,25 +40,6 @@ HISTFILESIZE=2000
 
 #stty -ixon
 
-# define some useful colors (be sure to surround with '\[' and '\]' or it borks the term)
-WHITE="\[\e[1;37m\]";
-GREEN="\[\e[0;32m\]";
-LIGHTGREEN="\[\e[1;32m\]";
-CYAN="\[\e[0;36m\]";
-LIGHTCYAN="\[\e[1;36m\]";
-GRAY="\[\e[0;37m\]";
-RED="\[\e[0;31m\]";
-LIGHTRED="\[\e[1;31m\]";
-BLACK="\[\e[0;30m\]";
-DARKGRAY="\[\e[1;30m\]";
-BLUE="\[\e[0;34m\]";
-LIGHTBLUE="\[\e[1;34m\]";
-PURPLE="\[\e[0;35m\]";
-LIGHTPURPLE="\[\e[1;35m\]";
-BROWN="\[\e[0;33m\]";
-LIGHTBROWN="\[\e[1;33m\]";
-NC="\[\e[0m\]";
-
 function function_exists {
 	[ -z "$1" ] && return 1
 	declare -F "$1" >/dev/null 2>&1
@@ -74,6 +55,8 @@ export EDITOR=vim
 
 # implement directory history
 [ -f ~/.dirsrc ] && . ~/.dirsrc
+
+[ -f ~/.prompt ] && . ~/.prompt
 
 # set the window title
 function xtitle () {
@@ -106,29 +89,10 @@ fi
 shopt -s extglob
 set +o nounset
 
-user_color="${GREEN}"
-[ "`id -u`" -eq 0 ] && user_color="${RED}"
-
 # these control the behavior of __git_ps1
 export GIT_PS1_SHOWDIRTYSTATE=1
 #export GIT_PS1_SHOWSTASHSTATE=1
 #export GIT_PS1_SHOWUNTRACKEDFILES=1
 #export GIT_PS1_SHOWUPSTREAM="auto"
 
-# needs to run after bash completion is loaded
-if function_exists __git_ps1; then
-	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${PURPLE}\$(__git_ps1)${WHITE}]${user_color}\\$ ${NC}"
-else
-	PS1="${WHITE}[${user_color}\u${WHITE}@$BLUE\h${DARKGRAY}:${BROWN}\W${WHITE}]${user_color}\\$ ${NC}"
-fi
-export PS1
-
-#Escape for screen
-case $TERM in
-	xterm*|rxvt*)
-		export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-	;;
-	screen*)
-		export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-	;;
-esac
+set_prompt
