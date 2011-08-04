@@ -86,6 +86,19 @@ fi
 [ -f /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
 [ -x /etc/bash_completion           ] && /etc/bash_completion
 
+# this overrides the in-built function to strip control characters
+__git_list_all_commands ()
+{
+	local i IFS=" "$'\n'
+	for i in $(git help -a|egrep --color=never '^  [a-zA-Z0-9]')
+	do
+		case $i in
+		*--*)             : helper pattern;;
+		*) echo $i;;
+		esac
+	done
+}
+
 shopt -s extglob
 set +o nounset
 
