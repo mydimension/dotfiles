@@ -32,12 +32,12 @@ function set_prompt {
     USER_COLOR="$GREEN"
     [ "`id -u`" -eq 0 ] && USER_COLOR="$RED"
 
-    JOBS=" $LIGHTBROWN«\j»"
+    JOBS=" $LIGHTBROWN\]«\j»"
 
     GIT=""
     [ `type -t __git_ps1` ] && GIT="$YELLOW\$(__git_ps1 ' (%s)')"
 
-    export PS1="$PURPLE┌ $LIGHTRED\D{%H:%M %m/%d}$JOBS$GIT $YELLOW[$LIGHTCYAN\w$YELLOW]\n$PURPLE└ $USER_COLOR\u$WHITE@$BLUE\h $USER_COLOR\$ $NC"
+    export PS1="$PURPLE\]┌ $LIGHTRED\D{%H:%M %m/%d}$JOBS$GIT $YELLOW[$LIGHTCYAN\w$YELLOW]\n$PURPLE\]└ $USER_COLOR\u$WHITE@$BLUE\h $USER_COLOR\$ $NC"
     export PS2="> "
 }
 
