@@ -1,9 +1,6 @@
 [ -z "$PS1" ] && return
 
 function set_prompt {
-    # capture early
-    EXITSTATUS="$?"
-
     [ "$TERM" == "dumb" ] && return
 
     # define some useful colors (be sure to surround with '\[' and '\]' or it borks the term)
@@ -38,7 +35,6 @@ function set_prompt {
     [ `type -t __git_ps1` ] && GIT="$YELLOW\$(__git_ps1 ' (%s)')"
 
     export PS1="$PURPLE\]┌ $LIGHTRED\D{%H:%M %m/%d}$JOBS$GIT $YELLOW[$LIGHTCYAN\w$YELLOW]\n$PURPLE\]└ $USER_COLOR\u$WHITE@$BLUE\h $USER_COLOR\$ $NC"
-    export PS2="> "
 }
 
 #Escape for screen
