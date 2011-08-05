@@ -37,7 +37,7 @@ function set_prompt {
     GIT=""
     [ `type -t __git_ps1` ] && GIT="$yellow\$(__git_ps1 ' (%s)')"
 
-    export PS1="$RED\D{%H:%M:%S %m/%d}$yellow<\j> $yellow[$CYAN\w$yellow]$GIT$nc\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
+    export PS1="$RED\D{%H:%M:%S %m/%d} $yellow<\j> $yellow[$CYAN\w$yellow]$GIT$nc\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
 }
 set_prompt
 
