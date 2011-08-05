@@ -34,20 +34,19 @@ function set_prompt {
     USER_COLOR="$green"
     [ "`id -u`" -eq 0 ] && USER_COLOR="$red"
 
-    JOBS=" $yellow<\j>"
-
     GIT=""
     [ `type -t __git_ps1` ] && GIT="$yellow\$(__git_ps1 ' (%s)')"
 
-    export PS1="$RED\D{%H:%M:%S %m/%d}$JOBS $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
+    export PS1="$RED\D{%H:%M:%S %m/%d}$yellow<\j> $yellow[$CYAN\w$yellow]$GIT$nc\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
 }
+set_prompt
 
 #Escape for screen
 case $TERM in
 	xterm*|rxvt*)
-		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 	;;
 	screen*)
-		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 	;;
 esac
