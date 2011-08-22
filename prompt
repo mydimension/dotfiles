@@ -38,7 +38,7 @@ function set_prompt {
     [ `type -t __git_ps1` ] && GIT="$yellow\$(__git_ps1 ' (%s)')"
 
     #export PS1="$RED\D{%H:%M:%S %m/%d} $yellow<\j> $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
-    export PS1="\[\e[s\]\[\e[1;\$((COLUMNS-13))f\]$RED\D{%H:%M:%S %m/%d}\[\e[u\]$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
+    export PS1="\$(tput sc;tput cup 0 \$((COLUMNS-14)))$RED\D{%H:%M:%S %m/%d}\$(tput rc)$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
 }
 set_prompt
 
