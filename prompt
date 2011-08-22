@@ -34,12 +34,11 @@ function set_prompt {
     USER_COLOR="$green"
     [ "`id -u`" -eq 0 ] && USER_COLOR="$red"
 
-    JOBS=" $yellow<\j>"
-
     GIT=""
     [ `type -t __git_ps1` ] && GIT="$yellow\$(__git_ps1 ' (%s)')"
 
-    export PS1="$RED\D{%H:%M:%S %m/%d}$JOBS $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
+    #export PS1="$RED\D{%H:%M:%S %m/%d} $yellow<\j> $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
+    export PS1="\[\e[s\]\[\e[1;\$((COLUMNS-13))f\]$RED\D{%H:%M:%S %m/%d}\[\e[u\]$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
 }
 
 #Escape for screen
