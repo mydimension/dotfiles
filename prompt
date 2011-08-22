@@ -40,13 +40,14 @@ function set_prompt {
     #export PS1="$RED\D{%H:%M:%S %m/%d} $yellow<\j> $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
     export PS1="\[\e[s\]\[\e[1;\$((COLUMNS-13))f\]$RED\D{%H:%M:%S %m/%d}\[\e[u\]$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
 }
+set_prompt
 
 #Escape for screen
 case $TERM in
 	xterm*|rxvt*)
-		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 	;;
 	screen*)
-		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 	;;
 esac
