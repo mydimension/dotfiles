@@ -38,16 +38,21 @@ function set_prompt {
     [ `type -t __git_ps1` ] && GIT="$yellow\$(__git_ps1 ' (%s)')"
 
     #export PS1="$RED\D{%H:%M:%S %m/%d} $yellow<\j> $yellow[$CYAN\w$yellow]$GIT\n$USER_COLOR\u$white@$blue\h $USER_COLOR\$ $nc"
-    export PS1="\$(tput sc;tput cup 0 \$((COLUMNS-14)))$RED\D{%H:%M:%S %m/%d}\$(tput rc)$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
+    export PS1="$yellow<\j> $USER_COLOR\u$white@$blue\h$CYAN:\w$GIT $USER_COLOR\\$ $nc"
+
+    tput sc
+    tput cup 0 $((COLUMNS-14))
+    tput setaf 1; tput bold
+    echo -n "$(date +'%H:%M:%S %m/%d')"
+    tput rc
 }
-set_prompt
 
 #Escape for screen
 case $TERM in
 	xterm*|rxvt*)
-		export PROMPT_COMMAND='history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 	;;
 	screen*)
-		export PROMPT_COMMAND='history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		export PROMPT_COMMAND='set_prompt; history -a; echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 	;;
 esac
