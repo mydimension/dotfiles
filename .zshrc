@@ -12,6 +12,7 @@ setopt\
     hist_ignore_dups\
     correct\
     short_loops\
+    monitor\
     check_jobs\
     long_list_jobs\
     prompt_bang\
@@ -37,12 +38,28 @@ autoload -U add-zsh-hook
 autoload -U vcs_info
 if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
+elif [[ "$termcap[colors]" -ge 8 ]]; then
+    colors
 fi
-for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval PR_$color='%{$fg[${(L)color}]%}'
-    eval PR_LIGHT_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-    (( count = $count + 1 ))
-done
+PR_RED="%{$fg[red]%}"
+PR_GREEN="%{$fg[green]%}"
+PR_YELLOW="%{$fg[yellow]%}"
+PR_BLUE="%{$fg[blue]%}"
+PR_MAGENTA="%{$fg[magenta]%}"
+PR_CYAN="%{$fg[cyan]%}"
+PR_WHITE="%{$fg[white]%}"
+PR_LIGHT_RED="%B$PR_RED"
+PR_LIGHT_GREEN="%B$PR_GREEN"
+PR_LIGHT_YELLOW="%B$PR_YELLOW"
+PR_LIGHT_BLUE="%B$PR_BLUE"
+PR_LIGHT_MAGENTA="%B$PR_MAGENTA"
+PR_LIGHT_CYAN="%B$PR_CYAN"
+PR_LIGHT_WHITE="%B$PR_WHITE"
+#for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+#    eval PR_$color='%{$fg[${(L)color}]%}'
+#    eval PR_LIGHT_$color='%B%{$fg[${(L)color}]%}'
+#    (( count = $count + 1 ))
+#done
 PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
 autoload -U compinit
@@ -123,8 +140,8 @@ zstyle ':completion:*:ssh:*' group-order \
 zstyle '*' single-ignored show
 
 zstyle ':vcs_info:*' enable git svn
-zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       '%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR "
+zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
 
 # run before each prompt re-paint
 precmd () {
@@ -142,5 +159,5 @@ precmd () {
     vcs_info
 }
 
-export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PG_WHITE@$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b%(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
+export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b%(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
 export RPS1="$PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
