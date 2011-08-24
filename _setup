@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-foreach (qw(bashrc aliasrc dirsrc inputrc perltidyrc screenrc gitconfig)) {
+foreach (qw(bashrc zshenv aliasrc dirsrc inputrc perltidyrc screenrc gitconfig tmux.conf)) {
 	if (-f "~/.$_") {
 		warn "~/.$_ already exists\n";
 	} else {
