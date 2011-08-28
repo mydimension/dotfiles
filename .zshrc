@@ -7,9 +7,12 @@ setopt\
     pushd_silent\
     pushd_to_home\
     complete_in_word\
+    list_packed\
     append_history\
+    hist_fcntl_lock\
     share_history\
-    hist_ignore_dups\
+    hist_find_no_dups\
+    hist_ignore_all_dups\
     correct\
     short_loops\
     monitor\
@@ -140,19 +143,19 @@ zstyle ':completion:*:ssh:*' group-order \
 zstyle '*' single-ignored show
 
 zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' stagedstr     "|$PR_GREEN+$PR_MAGENTA"
+zstyle ':vcs_info:*' unstagedstr   "|$PR_RED*$PR_MAGENTA"
 zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR "
-zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
+zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
 
 # run before each prompt re-paint
 precmd () {
     # change terminal title
     case $TERM in
-        xterm*|rxvt*)
-            echo -ne "\033]0; $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"
-            ;;
-        screen*)
-            echo -ne "\033k $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"
-            ;;
+        (xterm*|rxvt*) echo -ne "\033]0; $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\007" ;;
+        (screen*)     echo -ne "\033k $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"  ;;
     esac
 
     # update VCS information in prompt
