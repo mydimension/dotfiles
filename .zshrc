@@ -1,5 +1,7 @@
 ulimit -S -c 0
 
+autoload -U is-at-least
+
 setopt\
     auto_pushd\
     pushd_ignore_dups\
@@ -9,7 +11,6 @@ setopt\
     complete_in_word\
     list_packed\
     append_history\
-    hist_fcntl_lock\
     share_history\
     hist_find_no_dups\
     hist_ignore_all_dups\
@@ -21,6 +22,9 @@ setopt\
     prompt_bang\
     prompt_percent\
     prompt_subst
+
+# this option added in 4.3.9
+is-at-least 4.3.9 && setopt hist_fcntl_lock
 
 unset\
     bg_nice\
@@ -175,3 +179,5 @@ precmd () {
 
 export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b%(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
 export RPS1="$PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
+
+export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
