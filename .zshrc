@@ -163,7 +163,11 @@ zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' stagedstr     "|$PR_GREEN+$PR_MAGENTA"
 zstyle ':vcs_info:*' unstagedstr   "|$PR_RED*$PR_MAGENTA"
 zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR "
-zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
+if is-at-least 4.3.11; then
+    zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
+else
+    zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
+fi
 
 # run before each prompt re-paint
 precmd () {
