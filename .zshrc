@@ -1,3 +1,5 @@
+[ !$_LOADED ] && source ~/.zshenv
+
 ulimit -S -c 0
 
 autoload -U is-at-least

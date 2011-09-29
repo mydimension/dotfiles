@@ -14,3 +14,5 @@ export LANG='en_US.UTF-8'
 export LC_TYPE=C
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
+
+export _LOADED=$SHLVL
