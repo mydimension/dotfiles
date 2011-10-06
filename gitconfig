@@ -5,9 +5,12 @@
 	co = commit
 	st = status
 [color]
+    ui = auto
 	diff = auto
 	status = auto
 	branch = auto
+	interactive = auto
+	grep = auto
 [core]
 	autocrlf = input
 	editor = /opt/local/bin/vim
