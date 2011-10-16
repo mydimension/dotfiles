@@ -165,9 +165,9 @@ zstyle ':vcs_info:*' stagedstr     "|$PR_GREEN+$PR_MAGENTA"
 zstyle ':vcs_info:*' unstagedstr   "|$PR_RED*$PR_MAGENTA"
 zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR "
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
+    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
 else
-    zstyle ':vcs_info:*' formats       "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
+    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
 fi
 
 # run before each prompt re-paint
@@ -186,3 +186,9 @@ export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$
 export RPS1="$PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
+
+autoload -U zrecompile
+[ -f $ZDOTDIR/.zshrc ]             && zrecompile -q -p $ZDOTDIR/.zshrc
+[ -f $ZDOTDIR/.zcompdump ]         && zrecompile -q -p $ZDOTDIR/.zcompdump
+[ -f $ZDOTDIR/.zshrc.zwc.old ]     && rm -f $ZDOTDIR/.zshrc.zwc.old
+[ -f $ZDOTDIR/.zcompdump.zwc.old ] && rm -f $ZDOTDIR/.zcompdump.zwc.old
