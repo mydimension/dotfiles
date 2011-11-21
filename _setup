@@ -14,6 +14,7 @@ my @files = qw(
     gitconfig
     tmux.conf
     psqlrc
+    pentadactylrc
 );
 
 foreach (@files) {
