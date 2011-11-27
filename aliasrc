@@ -9,12 +9,12 @@ alias path='echo -e ${PATH//:/\\n}'
 alias vi='vim'
 alias sshpass='ssh -o preferredauthentications=password'
 
-if [ "$OSTYPE" != 'darwin10.0' ]; then
-	alias w='w -u'
-fi
+[ "$OSTYPE" != 'darwin10.0' ] && alias w='w -u'
 
 [ -f /Applications/MacVim.app/Contents/MacOS/Vim ] &&
 	alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
+
+alias g='gvim --remote-tab-silent'
 
 #alias screen='screen-ssh-agent ; screen'
 #alias fixssh=". $HOME/.screen/session-variables"

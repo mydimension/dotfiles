@@ -17,6 +17,6 @@ export LC_TYPE=C
 
 export _LOADED=$SHLVL
 
-if [[ ( `uname` == 'Darwin' ) && ( ! -d $TMPDIR ) ]]; then
-    ${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
+if [[ `uname` == 'Darwin' ]]; then
+    export TMPDIR=${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
 fi
