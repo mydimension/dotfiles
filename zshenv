@@ -16,3 +16,7 @@ export LC_TYPE=C
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 
 export _LOADED=$SHLVL
+
+if [[ ( `uname` == 'Darwin' ) && ( ! -d $TMPDIR ) ]]; then
+    ${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
+fi
