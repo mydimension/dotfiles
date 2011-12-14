@@ -4,6 +4,7 @@ ulimit -S -c 0
 
 autoload -U is-at-least
 
+# vi keybindings
 setopt\
     auto_pushd\
     pushd_ignore_dups\
@@ -163,11 +164,11 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' stagedstr     "|$PR_GREEN+$PR_MAGENTA"
 zstyle ':vcs_info:*' unstagedstr   "|$PR_RED*$PR_MAGENTA"
-zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR "
+zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR"
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR "
+    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR"
 else
-    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR "
+    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR"
 fi
 
 # run before each prompt re-paint
@@ -182,8 +183,8 @@ precmd () {
     vcs_info
 }
 
-export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b%(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
-export RPS1="$PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
+export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b %(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
+export RPS1="%1v $PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 

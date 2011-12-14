@@ -25,3 +25,6 @@
 [mergetool "threesome"]
     cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
+[tig]
+    line-graphics = utf8
+    tab-size = 4
