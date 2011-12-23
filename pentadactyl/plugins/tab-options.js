@@ -11,10 +11,10 @@
  *
  * Documentation is at the tail of this file.
  */
-"use strict";
+/* use strict */
 
 let groupId = 0;
-let onUnload = util.overlayObject(gBrowser, {
+let onUnload = overlay.overlayObject(gBrowser, {
     addTab: util.wrapCallback(function addTab(uri, params, charset, postData, ownerTab) {
         if (!isObject(params) || params instanceof Ci.nsIURI)
             params = { referrerURI: params, ownerTab: ownerTab };
@@ -86,7 +86,7 @@ let onUnload = util.overlayObject(gBrowser, {
     }),
 });
 
-options.add(["tabclose", "tc"],
+group.options.add(["tabclose", "tc"],
     "Tab closure options, in order of precedence",
     "stringlist", "left,opener,previous,right",
     {
@@ -97,7 +97,7 @@ options.add(["tabclose", "tc"],
             ["right", "Select the tab to the right when closing"]
         ]
     });
-options.add(["tabopen", "to"],
+group.options.add(["tabopen", "to"],
     "Placement options for new tabs",
     "stringmap", "link:right,orphan:groupright,external:end",
     {
@@ -116,13 +116,6 @@ options.add(["tabopen", "to"],
                 ["right", "Open new tabs to the right of the current tab"],
                 ["start", "Open new tabs at the start of the tab bar"]
             ]
-        },
-        // Fixme: validateCompleter needs to handle stringmaps
-        validator: function (newVals) {
-            let keys = Set(this.completer(null, { values: {} }).map(function ([k, v]) k));
-            let vals = Set(this.completer(null, { value: "" }).map(function ([k, v]) k));
-            return Object.keys(newVals).every(function (k) Set.has(keys, k)) &&
-                   array(values(newVals)).every(function (k) Set.has(vals, k));
         }
     });
 
