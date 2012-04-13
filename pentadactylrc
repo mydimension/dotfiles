@@ -4,8 +4,10 @@ set popups=tab,resized
 set complete=slfS
 set newtab+=help
 set hintkeys=asdfghjkl
-set passkeys+='google\.com\/reader':jkratevm?
-set passkeys+='mail\.google\.com':c/jkhnpouelxsfra#`[]z?\*nrgidIU+-=<Tab><Return>,gi
+set passkeys+='google\.com\/reader':jkraevm?
+set passkeys+='mail\.google\.com/mail':c/jkhnpouelxsfra#`[]z?\*nrgidIU+-=<Tab><Return>,gi
+set passkeys+='play\.google\.com/music':<Space>/=-<Right><Left>?
+set passkeys+='www\.pandora\.com':<Space><Right><Left>+-<Up><Down>
 set tabclose=opener,previous,left
 set pageinfo+=hH
 
@@ -15,7 +17,7 @@ set noerrorbells
 
 map J :tabprevious<cr>
 map K :tabnext<cr>
-map d :tabclose<cr>
+map d -ex tabclose
 
 highlight Hint font-family: sans-serif; font-size: 13px; font-weight: normal; color: black; background-color: #fffcc8 !important; border: 1px solid black; padding: 2px; line-height: 13px; text-transform: none;
 highlight HintActive background-color: rgba(0,0,0,0) !important;
