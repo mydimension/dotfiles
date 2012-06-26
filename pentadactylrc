@@ -25,3 +25,6 @@ highlight HintElem background-color: rgba(0,0,0,0) !important;
 
 " zoom an image to 100% when FF sizes it to fit
 nmap <leader>z :js window.content.document.toggleImageSize();<CR>
+
+" auto enable passthru on glitch.com/game
+autocmd LocationChange 'glitch\.com/game' :normal! <C-z>
