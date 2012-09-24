@@ -25,7 +25,7 @@
     tool = threesome
     gui = opendiff
 [rebase]
-    state = true
+    stat = true
 [mergetool]
     keepBackup = false
 [mergetool "threesome"]
