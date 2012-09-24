@@ -1,25 +1,31 @@
+[core]
+	autocrlf = input
+	editor = /opt/local/bin/vim
 [user]
 	name = William Cox
 	email = wcox@blackducksoftware.com
 [alias]
 	co = commit
 	st = status
+    cko = checkout
 [color]
-    ui = auto
-	diff = auto
-	status = auto
 	branch = auto
-	interactive = auto
+	diff = auto
 	grep = auto
-[core]
-	autocrlf = input
-	editor = /opt/local/bin/vim
+	interactive = auto
+    showbranch = auto
+	status = auto
+    ui = auto
 [diff]
     tool = vimdiff
     gui = opendiff
+[branch]
+	autosetuprebase = always
 [merge]
     tool = threesome
     gui = opendiff
+[rebase]
+    state = true
 [mergetool]
     keepBackup = false
 [mergetool "threesome"]
