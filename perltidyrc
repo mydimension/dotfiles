@@ -19,3 +19,4 @@
 -vt=0   # minimal vertical tightness
 -cti=1  # some extra indentation for closing brackets
 -kis    # a single line multi-statement will keep it's semicolon and not break
+-nst    # disable output to stdout
