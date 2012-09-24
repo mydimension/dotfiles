@@ -32,5 +32,5 @@
     cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
 [tig]
-    line-graphics = utf8
+	line-graphics = utf-8
     tab-size = 4
