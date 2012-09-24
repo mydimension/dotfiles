@@ -13,7 +13,10 @@ set pageinfo+=hH
 
 set hlfind
 set incfind
+
 set noerrorbells
+set visualbell
+highlight Bell -a border:0 none; background-color:transparent !important;
 
 map J :tabprevious<cr>
 map K :tabnext<cr>

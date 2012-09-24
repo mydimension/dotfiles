@@ -15,6 +15,8 @@ export LC_TYPE=C
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 
+typeset -U path manpath # remove duplicate entries
+
 export _LOADED=$SHLVL
 
 if [[ `uname` == 'Darwin' ]]; then
