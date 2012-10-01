@@ -3,3 +3,4 @@
 pentadactyl/info/*
 mutt/*.pyc
 !mutt/temp/.gitignore
+!mutt/cache/.gitignore
