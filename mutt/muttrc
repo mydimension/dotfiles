@@ -1,0 +1,183 @@
+# Paths -----------------------------------------------------------------------
+set folder           = ~/.mail
+set alias_file       = ~/.mutt/alias
+set header_cache     = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/boddies
+set certificate_file = ~/.mutt/certificates
+set mailcap_path     = ~/.mutt/mailcap
+set tmpdir           = ~/.mutt/temp
+set signature        = ~/.mutt/sig
+
+# Basic Options ---------------------------------------------------------------
+set wait_key = no       # shut up, mutt
+set mbox_type = Maildir # mailbox type
+set timeout = 3         # idle time before scanning
+set mail_check = 0      # minimum time between scans
+unset move              # gmail does that
+set delete              # don't ask, just do
+unset confirmappend     # don't ask, just do!
+set quit                # don't ask, just do!!
+unset mark_old          # read/new is good enough for me
+set beep_new            # bell on new mails
+set pipe_decode         # strip headers and eval mimes when piping
+set thorough_search     # strip headers and eval mimes before searching
+
+# Sidebar Patch ---------------------------------------------------------------
+set sidebar_delim   = ' |'
+set sidebar_visible = yes
+set sidebar_width   = 24
+
+# Status Bar ------------------------------------------------------------------
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# Header Options --------------------------------------------------------------
+ignore *                               # ignore all headers
+unignore from: to: cc: date: subject:  # show only these
+hdr_order from: to: cc: date: subject: # and in this order
+
+# Account Settings ------------------------------------------------------------
+set spoolfile = "+mydimension-gmail.com/INBOX"
+alternates william@my-dimension.com william\.edward\.cox@gmail.com
+
+# To show in the sidebar
+mailboxes +mydimension-gmail.com/INBOX \
+          +mydimension-gmail.com/sent \
+          +mydimension-gmail.com/drafts \
+          +mydimension-gmail.com/Forums \
+          +mydimension-gmail.com/Notifications \
+          +mydimension-gmail.com/Promotions \
+
+set mbox      = "+mydimension-gmail.com/archive"
+set postponed = "mydimension-gmail.com/drafts"
+
+# Index View Options ----------------------------------------------------------
+set date_format = "%m/%d"
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set sort = threads                        # like gmail
+set sort_aux = reverse-last-date-received # like gmail
+set uncollapse_jump                       # don't collapse on unread message
+set sort_re                               # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# Index Key Bindings ----------------------------------------------------------
+bind index gg first-entry
+bind index G  last-entry
+bind index R group-reply
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+bind index N search-opposite
+bind index p recall-message
+# Ctrl-R to mark all as read
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+# Sync email
+macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
+macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
+# Saner copy/move dialogs
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
+# Sidebar Navigation ----------------------------------------------------------
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
+
+# Pager View Options ----------------------------------------------------------
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
+
+bind pager N search-opposite
+
+# Pager Key Bindings ----------------------------------------------------------
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+bind pager R  group-reply
+# Viewing links in emails
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+# View attachments properly
+bind attach <return> view-mailcap
+
+# Compose View Options --------------------------------------------------------
+set realname = " William Cox"
+set envelope_from                    # which from?
+set sig_dashes                       # dashes before sig
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+unset mime_forward                   # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply-To: header
+set reverse_name                     # replyas whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+set editor = "vim -c 'normal! }' -c 'redraw'"
+set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+bind compose p postpone-message
+
+# Sending Options -------------------------------------------------------------
+set from = "mydimension@gmail.com"
+set sendmail = "/usr/bin/env msmtp -a williamgmail"
+set sendmail_wait = 0
+unset record
+
+# Colors ======================================================================
+# general-doesn't-fit stuff
+color normal color252 color233
+color error color193 color124
+color markers color142 color233
+color tilde color142 color233
+color status color172 color233
+
+# index stuff
+color tree color244 color233
+color indicator color255 color235
+color index color117 color233 ~N
+color index color124 color233 ~D
+
+# header stuff
+color hdrdefault color248 color233
+color header color226 color233 "^Subject"
+
+# url, email and web stuff
+color body color68 color233 "(finger|ftp|http|https|news|telnet)://[^ >]*"
+color body color111 color233 "<URL:[^ ]*>"
+color body color111 color233 "www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+color body color111 color233 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+color body brightred color233 "^-.*"
+color body green color233 "^[+].*"
+color body brightwhite color233 "^diff .*"
+color body brightyellow color233 "^@@.*"
+
+# misc body stuff
+color attachment color111 color233
+color signature color244 color233
+
+# quote levels
+color quoted color34 color233
+color quoted1 color142 color233
+color quoted2 color34 color233
+color quoted3 color142 color233
+color quoted4 color34 color233
+color quoted5 color142 color233
+color quoted6 color34 color233
+color quoted7 color142 color233
+color quoted8 color34 color233
+color quoted9 color142 color233
+
+# sidebar
+color sidebar_new color221 color233
