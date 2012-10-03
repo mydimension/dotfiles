@@ -25,7 +25,7 @@ set thorough_search     # strip headers and eval mimes before searching
 # Sidebar Patch ---------------------------------------------------------------
 set sidebar_delim   = ' |'
 set sidebar_visible = yes
-set sidebar_width   = 24
+set sidebar_width   = 30
 
 # Status Bar ------------------------------------------------------------------
 set status_chars  = " *%A"
@@ -49,7 +49,7 @@ mailboxes +mydimension-gmail.com/INBOX \
           +mydimension-gmail.com/Promotions \
 
 set mbox      = "+mydimension-gmail.com/archive"
-set postponed = "mydimension-gmail.com/drafts"
+set postponed = "+mydimension-gmail.com/drafts"
 
 # Index View Options ----------------------------------------------------------
 set date_format = "%m/%d"
@@ -77,6 +77,8 @@ macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to s
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 macro index a "<limit>all\n" "show all messages (undo limit)"
+# Gmail-style shortcuts
+macro index,pager gi "<change-folder>=INBOX<enter>"
 
 # Sidebar Navigation ----------------------------------------------------------
 bind index,pager <down>   sidebar-next

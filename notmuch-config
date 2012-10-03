@@ -11,7 +11,7 @@
 # configured here named ".notmuch".
 #
 [database]
-path=/Users/wcox/.mail/mydimension-gmail.com
+#path=~/.mail/mydimension-gmail.com
 
 # User configuration
 #

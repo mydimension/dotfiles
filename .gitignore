@@ -2,5 +2,7 @@
 *.zwc*
 pentadactyl/info/*
 mutt/*.pyc
+mutt/temp/*
 !mutt/temp/.gitignore
+mutt/cache/*
 !mutt/cache/.gitignore
