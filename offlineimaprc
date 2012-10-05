@@ -1,5 +1,5 @@
 [general]
-ui = TTY.TTYUI
+ui = ttyui
 accounts = WilliamGmail
 pythonfile=~/.mutt/offlineimap.py
 fsync = False
@@ -21,7 +21,7 @@ nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
                             }.get(folder, folder)
 
 [Repository WilliamGmail-Remote]
-maxconnections = 1
+maxconnections = 3
 type = Gmail
 remoteuser = mydimension@gmail.com
 remotepasseval = get_keychain_pass(account="mydimension@gmail.com", server="imap.gmail.com")
