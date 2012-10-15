@@ -1212,22 +1212,76 @@
 	<false/>
 	<key>MinimumContrast</key>
 	<real>0.0</real>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
-	<key>NSFontPanelPreviewHeight</key>
-	<real>0.0</real>
-	<key>NSNavBrowserPreferedColumnContentWidth</key>
-	<real>186</real>
-	<key>NSNavLastCurrentDirectory</key>
-	<string>~/dotfiles</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
+	<string>~/dotfiles</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
 	<string></string>
+	<key>NSTableView Columns BookmarksView5</key>
+	<array>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErBE5hbWWG
+		</data>
+		<string>154</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErB0NvbW1hbmSG
+		</data>
+		<string>153</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErEFRlcm1pbmFsIFByb2ZpbGWG
+		</data>
+		<string>57</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErEEtleWJvYXJkIFByb2ZpbGWG
+		</data>
+		<string>57</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErD0Rpc3BsYXkgUHJvZmlsZYY=
+		</data>
+		<string>57</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErCFNob3J0Y3V0hg==
+		</data>
+		<string>29</string>
+	</array>
+	<key>NSTableView Columns KeyBingingTable</key>
+	<array>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErATCG
+		</data>
+		<string>198</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErATGG
+		</data>
+		<string>302</string>
+	</array>
+	<key>NSTableView Hidden Columns BookmarksView5</key>
+	<array/>
+	<key>NSTableView Hidden Columns KeyBingingTable</key>
+	<array/>
+	<key>NSTableView Sort Ordering BookmarksView5</key>
+	<array/>
+	<key>NSTableView Sort Ordering KeyBingingTable</key>
+	<array/>
 	<key>NSToolbar Configuration Terminal Toolbar</key>
 	<dict>
+		<key>TB Default Item Identifiers</key>
+		<array>
+			<string>New</string>
+			<string>Info</string>
+			<string>Close</string>
+			<string>Command</string>
+			<string>Profiles</string>
+		</array>
 		<key>TB Display Mode</key>
 		<integer>1</integer>
 		<key>TB Icon Size Mode</key>
@@ -1251,15 +1305,13 @@
 		<dict/>
 	</dict>
 	<key>NSWindow Frame Bookmarks</key>
-	<string>-1607 647 601 344 -1680 0 1680 1050 </string>
+	<string>906 564 601 344 0 0 1680 1028 </string>
+	<key>NSWindow Frame Config Panel</key>
+	<string>1003 180 254 559 0 0 1280 778 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>172 327 924 485 0 0 1680 1028 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>127 444 592 584 0 0 1680 1028 </string>
-	<key>NSWindow Frame com.apple.typography_panel_Inconsolata</key>
-	<string>410 660 260 42 0 0 1680 1028 </string>
+	<string>502 342 924 485 0 0 1680 1028 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1680 140 1441 902 -1680 0 1680 1050 </string>
+	<string>0 126 1426 902 0 0 1680 1028 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2467,6 +2519,8 @@
 			<string>/Users/wcox</string>
 		</dict>
 	</array>
+	<key>NoSyncNeverRemindPrefsChangesLost</key>
+	<true/>
 	<key>NotFirstRun</key>
 	<true/>
 	<key>OnlyWhenMoreTabs</key>
@@ -2517,7 +2571,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/wcox/dotfiles</string>
+	<string>/Users/william/dotfiles</string>
 	<key>PromptOnClose</key>
 	<false/>
 	<key>PromptOnQuit</key>
@@ -2537,7 +2591,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2012-10-11T21:33:48Z</date>
+	<date>2012-10-15T02:31:31Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Show Toolbelt</key>
@@ -2597,8 +2651,6 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1327432704</real>
 	<key>URLHandlers</key>
 	<dict/>
 	<key>URLHandlersByGuid</key>
@@ -2615,7 +2667,7 @@
 	<key>UseCompactLabel</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
-	<true/>
+	<false/>
 	<key>UseUnevenTabs</key>
 	<true/>
 	<key>WebKitDefaultFontSize</key>
