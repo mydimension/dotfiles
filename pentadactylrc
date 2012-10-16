@@ -1,5 +1,8 @@
 :loadplugins
 
+colorscheme solarized-dark
+
+set guioptions-=rb
 set popups=tab,resized
 set complete=slfS
 set newtab+=help
@@ -13,21 +16,25 @@ set pageinfo+=hH
 
 set hlfind
 set incfind
+set findcase=smart
 
 set noerrorbells
 set visualbell
-highlight Bell -a border:0 none; background-color:transparent !important;
+highlight Bell display: none;
 
 map J :tabprevious<cr>
 map K :tabnext<cr>
 map d -ex tabclose
 
-highlight Hint font-family: sans-serif; font-size: 13px; font-weight: normal; color: black; background-color: #fffcc8 !important; border: 1px solid black; padding: 2px; line-height: 13px; text-transform: none;
-highlight HintActive background-color: rgba(0,0,0,0) !important;
-highlight HintElem background-color: rgba(0,0,0,0) !important;
+" highlight Hint font-family: sans-serif; font-size: 13px; font-weight: normal; color: black; background-color: #fffcc8 !important; border: 1px solid black; padding: 2px; line-height: 13px; text-transform: none;
+" highlight HintActive background-color: rgba(0,0,0,0) !important;
+" highlight HintElem background-color: rgba(0,0,0,0) !important;
 
 " zoom an image to 100% when FF sizes it to fit
 nmap <leader>z :js window.content.document.toggleImageSize();<CR>
 
 " auto enable passthru on glitch.com/game
 autocmd LocationChange 'glitch\.com/game' :normal! <C-z>
+
+" Readability
+command! rdb :open javascript:(function(){window.baseUrl='https://www.readability.com';window.readabilityToken='';var s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('charset','UTF-8');s.setAttribute('src',baseUrl+'/bookmarklet/read.js');document.documentElement.appendChild(s);})()
