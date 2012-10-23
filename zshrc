@@ -21,22 +21,24 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+if [[ $TERM == "screen" ]]; then
+    DISABLE_AUTO_TITLE="true"
+fi
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
 
+ZSH_CUSTOM="$HOME/dotfiles/omz-custom"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode)
+plugins=(git vi-mode screen extract)
 
 if [[ `uname` == 'Darwin' ]]; then
     plugins+=(osx macports)
     export TMPDIR=${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
 fi
-
-source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 PATH=/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/X11/bin:$PATH
@@ -45,3 +47,6 @@ PATH=/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/X11/bin:$PATH
 typeset -U path manpath
 
 export PATH PAGER=less EDITOR=vim LC_ALL='en_US.UTF-8' LANG=$LC_ALL LC_TYPE=C
+
+source $ZSH/oh-my-zsh.sh
+

@@ -1,0 +1,1 @@
+[ -f ~/.aliasrc ] && source ~/.aliasrc
