@@ -6,6 +6,7 @@ export HOSTNAME=`hostname`
 
 export PATH=/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/X11/bin:$PATH
 [ -d /opt/local/libexec/gnubin ] && export PATH=/opt/local/libexec/gnubin:$PATH
+[ -d ~/bin ] && export PATH=~/bin:$PATH
 
 export PAGER=less
 export EDITOR=vim
