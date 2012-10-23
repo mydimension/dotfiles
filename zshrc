@@ -29,23 +29,19 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx macports vi-mode)
+plugins=(git vi-mode)
+
+if [[ `uname` == 'Darwin' ]]; then
+    plugins+=(osx macports)
+    export TMPDIR=${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
+fi
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 PATH=/opt/local/bin:/opt/local/sbin:/opt/X11/bin:/usr/X11/bin:$PATH
 [ -d /opt/local/libexec/gnubin ] && PATH=/opt/local/libexec/gnubin:$PATH
-export PATH
 
 typeset -U path manpath
 
-export PAGER=less
-export EDITOR=vim
-export LC_ALL='en_US.UTF-8'
-export LANG=$LC_ALL
-export LC_TYPE=C
-
-if [[ `uname` == 'Darwin' ]]; then
-    export TMPDIR=${TMPDIR:=$(getconf DARWIN_USER_TEMP_DIR)}
-fi
+export PATH PAGER=less EDITOR=vim LC_ALL='en_US.UTF-8' LANG=$LC_ALL LC_TYPE=C
