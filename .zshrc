@@ -42,7 +42,6 @@ setopt prompt_subst         # live parameter substitution
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 zmodload zsh/complist              # stylin completion
-zmodload -F zsh/stat b:zstat       # interesting raw stat command
 
 autoload -U compinit && compinit   # initialize completion system
 autoload colors zsh/terminfo       # color arrays
