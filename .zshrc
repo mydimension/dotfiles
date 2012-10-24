@@ -161,8 +161,8 @@ if is-at-least 4.3.11; then
     zstyle ':vcs_info:*' formats       "⭠ %b%c%u"
     zstyle ':vcs_info:*' actionformats "⭠ %b%c%u|%a"
 else
-    zstyle ':vcs_info:*' formats       "⭠ %b"
-    zstyle ':vcs_info:*' actionformats "⭠ %b|%a"
+    zstyle ':vcs_info:*' formats       "%b"
+    zstyle ':vcs_info:*' actionformats "%b|%a"
 fi
 
 # run before each prompt re-paint
@@ -194,13 +194,12 @@ for bind in ${(@f)binds}; do eval $bind; done
 unset binds
 
 function build_prompt () {
-    local prompt="%{$reset_color%}"
-    local sep='⮀'
+    local prompt="%{$reset_color%}" sep='⮀' job='⚙'
     if is-at-least 4.3.11; then else
-        sep=''
+        sep='' job='*'
     fi
     # begin | bg job indicator
-    prompt+="%{$fg[default]$bg[black]%}%(1j. %{$fg[yellow]%}⚙%{$fg[default]%}.) "
+    prompt+="%{$fg[default]$bg[black]%}%(1j. %{$fg[yellow]%}$job%{$fg[default]%}.) "
     # who@where with "who" colored red if root
     prompt+="%(!.%{$fg[red]%}.)%n%{$fg[white]%}@%{$fg[default]%}%m "
     # up to last five path segments
@@ -230,13 +229,13 @@ function vi_mode_prompt_info() {
     echo -ne "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
 }
 
-export PS1='$(build_prompt)'
 if is-at-least 4.3.11; then
     RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
 else
     RPS1="%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
 fi
-export RPS1
+
+export PS1='$(build_prompt)' RPS1
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
