@@ -153,16 +153,17 @@ zstyle ':completion:*:ssh:*' group-order \
 zstyle '*' single-ignored show
 
 # VCS info in prompt
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git svn hg bzr cvs
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' stagedstr     "|%{$fg[cyan]%}+%{$fg[magenta]%}"
-zstyle ':vcs_info:*' unstagedstr   "|%{$fg[red]%}*%{$fg[magenta]%}"
-zstyle ':vcs_info:*' actionformats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}|%{$fg[red]%}%a%{$fg[magenta]%}]%{$reset_color%}"
+zstyle ':vcs_info:*' stagedstr   "✔"  # -> %c
+zstyle ':vcs_info:*' unstagedstr "±"  # -> %u
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:*' formats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}%c%u]%{$reset_color%}"
+    zstyle ':vcs_info:*' formats       "⭠ %b%c%u"
+    zstyle ':vcs_info:*' actionformats "⭠ %b%c%u|%a"
 else
-    zstyle ':vcs_info:*' formats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}]%{$reset_color%}"
+    zstyle ':vcs_info:*' formats       "⭠ %b"
+    zstyle ':vcs_info:*' actionformats "⭠ %b|%a"
 fi
 
 # run before each prompt re-paint
@@ -196,29 +197,25 @@ function vi_mode_prompt_info() {
     echo "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
 }
 
-export PS1="%(1j.%{$fg[yellow]%}⚙ .)%(!.%{$fg[red]%}.%{$fg[green]%})%n%{$fg_bold[white]%}@%b%{$fg[blue]%}%m%{$fg_bold[cyan]%}:%5~%b \${vcs_info_msg_0_}%b %(!.%{$fg[red]%}#.%{$fg[green]%}$)%{$reset_color%} "
-
 function build_prompt () {
     local prompt
     local sep='⮀'
-    prompt="%{%K{black}%}%{%F{default}%}%(1j.%{%F{yellow}%}⚙ .) "
-    prompt+="%(!.%{%K{red}%}.)%n@%m "
-    prompt+="%{%K{blue}%}%{%F{black}%}$sep "
-    prompt+="%5~ "
+    prompt="%{%F{default}%K{black}%}%(1j. %{%F{yellow}%}⚙%{%F{default}%}.) "
+    prompt+="%(!.%{%F{red}%}.)%n%{%F{white}%}@%{%F{default}%}%m "
+    prompt+="%{%F{black}%K{blue}%}$sep %5~ "
 
     if [[ -n $vcs_info_msg_0_ ]]; then
-        prompt+="%{%F{blue}%}%{%K{green}%}$sep "
-        prompt+="$vcs_info_msg_0_ "
+        prompt+="%{%F{blue}%}%{%K{green}%}$sep%{%F{black}%}"
+        prompt+=" $vcs_info_msg_0_ "
         prompt+="%{%F{green}%}%{%K{default}%}$sep%{%k%f%} "
     else
-        prompt+="%{%K{default}%}%{%F{blue}%}$sep%{%k%f%} "
+        prompt+="%{%F{blue}%K{default}%}$sep%{%k%f%} "
     fi
 
     echo -ne $prompt
 }
 
 export PS1="%{%f%b%k%}\$(build_prompt)"
-#export PS1="%{%K{black}%}%{%F{default}%}%(1j.%{%F{yellow}%}⚙ .)
 
 export RPS1="\$(vi_mode_prompt_info) %{$fg_bold[red]%}%D{%H:%M:%S %m/%d}%{$reset_color%}"
 
