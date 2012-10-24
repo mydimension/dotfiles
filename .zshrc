@@ -175,8 +175,10 @@ title_precmd() {
     esac
 }
 
-add-zsh-hook precmd title_precmd
-add-zsh-hook precmd vcs_info # update VCS info in prompt
+function precmd () {
+    title_precmd
+    vcs_info # update VCS info in prompt
+}
 
 ## setup vi mode
 function zle-line-init zle-keymap-select {
