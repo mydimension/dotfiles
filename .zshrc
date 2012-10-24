@@ -1,81 +1,62 @@
 [ !$_LOADED ] && source ~/.zshenv
 
+# do not prodice coredumps
 ulimit -S -c 0
 
+# need this for version scoping
 autoload -U is-at-least
 
-# vi keybindings
-setopt\
-    auto_pushd\
-    pushd_ignore_dups\
-    pushd_minus\
-    pushd_silent\
-    pushd_to_home\
-    complete_in_word\
-    list_packed\
-    append_history\
-    share_history\
-    hist_find_no_dups\
-    hist_ignore_all_dups\
-    correct\
-    short_loops\
-    monitor\
-    check_jobs\
-    long_list_jobs\
-    prompt_bang\
-    prompt_percent\
-    prompt_subst
+## cd management
+setopt auto_pushd           # auto push onto directory stack
+setopt pushd_ignore_dups    # ...except for duplicates
+setopt pushd_minus          # more human use of cd +/-
+setopt pushd_silent         # just silently push
+setopt pushd_to_home        # 'pushd' goes to $HOME
+## completion
+setopt complete_in_word     # allow completion inside a string
+setopt list_packed          # tighter list view
+unset  auto_param_slash     # don't put the directory slash on immediately
+## history
+setopt append_history       # each session appends history instead of overriting
+setopt share_history        # multiple sessions share history session file
+setopt hist_find_no_dups    # de-dup history searches
+setopt hist_ignore_all_dups # de-dup all history entries
+is-at-least 4.3.9 && setopt hist_fcntl_lock  # prevent OS locking when saving history
+## Input/Output
+setopt correct              # do command correction
+setopt short_loops          # short forms on control structs
+## job control
+setopt monitor              # turn on
+setopt check_jobs           # interrupt leaving a session with background jobs
+setopt long_list_jobs       # be verbose
+unset  bg_nice              # background jobs are people too
+## prompting
+setopt prompt_bang          # '!' is special
+setopt prompt_percent       # '%' is special
+setopt prompt_subst         # live parameter substitution
 
-# this option added in 4.3.9
-is-at-least 4.3.9 && setopt hist_fcntl_lock
-
-unset\
-    bg_nice\
-    auto_param_slash
-
+# my aliases
 [ -f ~/.aliasrc ] && source ~/.aliasrc
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-zmodload zsh/complist
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -a zsh/zprof zprof
-zmodload -ap zsh/mapfile mapfile
+zmodload zsh/complist              # stylin completion
+zmodload -F zsh/stat b:zstat       # interesting raw stat command
 
-autoload -U compinit && compinit
-autoload colors zsh/terminfo
-autoload -U add-zsh-hook
-autoload -U vcs_info
+autoload -U compinit && compinit   # initialize completion system
+autoload colors zsh/terminfo       # color arrays
+autoload -U add-zsh-hook           # event hook system
+autoload -U vcs_info               # robust scm info
+
+# bring in the pretty colors
 if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
 elif [[ "$termcap[colors]" -ge 8 ]]; then
     colors
 fi
-PR_RED="%{$fg[red]%}"
-PR_GREEN="%{$fg[green]%}"
-PR_YELLOW="%{$fg[yellow]%}"
-PR_BLUE="%{$fg[blue]%}"
-PR_MAGENTA="%{$fg[magenta]%}"
-PR_CYAN="%{$fg[cyan]%}"
-PR_WHITE="%{$fg[white]%}"
-PR_LIGHT_RED="%B$PR_RED"
-PR_LIGHT_GREEN="%B$PR_GREEN"
-PR_LIGHT_YELLOW="%B$PR_YELLOW"
-PR_LIGHT_BLUE="%B$PR_BLUE"
-PR_LIGHT_MAGENTA="%B$PR_MAGENTA"
-PR_LIGHT_CYAN="%B$PR_CYAN"
-PR_LIGHT_WHITE="%B$PR_WHITE"
-#for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-#    eval PR_$color='%{$fg[${(L)color}]%}'
-#    eval PR_LIGHT_$color='%B%{$fg[${(L)color}]%}'
-#    (( count = $count + 1 ))
-#done
-PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
-autoload -U compinit
-compinit
+# handy keybindings
 bindkey '^r' history-incremental-search-backward
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
@@ -89,15 +70,15 @@ bindkey ' ' magic-space    # also do history expansion on space
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
 zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' menu select
 zstyle ':completion:*' cache-path ~/.zsh/cache/$HOST
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*:processes' command 'ps -axw'
 zstyle ':completion:*:processes-names' command 'ps -awxho command'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
 
 # Completion Styles
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -105,22 +86,28 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # list of completers to use
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
-
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
-#NEW completion:
-# 1. All /etc/hosts hostnames are in autocomplete
-# 2. If you have a comment in /etc/hosts like #%foobar.domain,
-#    then foobar.domain will show up in autocomplete!
-local _myhosts
-if [[ -f $HOME/.ssh/known_hosts ]]; then
-    _myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
-fi
-zstyle ':completion:*' hosts $(awk '/^[^#]/ {print $2 $3" "$4" "$5}' /etc/hosts | grep -v ip6- && grep "^#%" /etc/hosts | awk -F% '{print $2}') $_myhosts
+# disable named-directories autocompletion
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+cdpath=(.)
+
+# use /etc/hosts and known_hosts for hostname completion
+[ -r /etc/ssh/ssh_known_hosts ] &&\
+    _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+[ -r ~/.ssh/known_hosts ] &&\
+    _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+[ -r /etc/hosts ] &&\
+    : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+hosts=(
+    "$_global_ssh_hosts[@]"
+    "$_ssh_hosts[@]"
+    "$_etc_hosts[@]"
+    "$HOST"
+    localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts
 
 # formatting and messages
 zstyle ':completion:*' verbose yes
@@ -136,16 +123,22 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# command for process lists, the local web server details and host completion
-#zstyle ':completion:*:processes' command 'ps -o pid,s,nice,stime,args'
-#zstyle ':completion:*:urls' local 'www' '/var/www/htdocs' 'public_html'
-zstyle '*' hosts $hosts
-
 # Filename suffixes to ignore during completion (except after rm command)
-zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
-    '*?.old' '*?.pro'
+zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' '*?.old' '*?.pro'
 # the same for old style completion
 #fignore=(.o .c~ .old .pro)
+
+# Don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+    adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
+    dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
+    hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
+    mailman mailnull mldonkey mysql nagios \
+    named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
+    operator pcap postfix postgres privoxy pulse pvm quagga radvd \
+    rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs '_*'
+# ... unless we really want to.
+zstyle '*' single-ignored show
 
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
@@ -159,35 +152,79 @@ zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
 
+# VCS info in prompt
 zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' stagedstr     "|$PR_GREEN+$PR_MAGENTA"
-zstyle ':vcs_info:*' unstagedstr   "|$PR_RED*$PR_MAGENTA"
-zstyle ':vcs_info:*' actionformats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA|$PR_RED%a$PR_MAGENTA]$PR_NO_COLOR"
+zstyle ':vcs_info:*' stagedstr     "|%{$fg[cyan]%}+%{$fg[magenta]%}"
+zstyle ':vcs_info:*' unstagedstr   "|%{$fg[red]%}*%{$fg[magenta]%}"
+zstyle ':vcs_info:*' actionformats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}|%{$fg[red]%}%a%{$fg[magenta]%}]%{$reset_color%}"
 if is-at-least 4.3.11; then
-    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA%c%u]$PR_COLOR"
+    zstyle ':vcs_info:*' formats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}%c%u]%{$reset_color%}"
 else
-    zstyle ':vcs_info:*' formats "$PR_MAGENTA%{%}[$PR_GREEN%b$PR_MAGENTA]$PR_COLOR"
+    zstyle ':vcs_info:*' formats "%{$fg[magenta]%}[%{$fg[green]%}%b%{$fg[magenta]%}]%{$reset_color%}"
 fi
 
 # run before each prompt re-paint
-precmd () {
+title_precmd() {
     # change terminal title
     case $TERM in
         (xterm*|rxvt*) echo -ne "\033]0; $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\007" ;;
         (screen*)     echo -ne "\033k $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"  ;;
     esac
-
-    # update VCS information in prompt
-    vcs_info
 }
 
-export PS1="$PR_YELLOW<%j> %(!.$PR_RED.$PR_GREEN)%n$PR_LIGHT_WHITE@%b$PR_BLUE%m$PR_LIGHT_CYAN:%5~%b \${vcs_info_msg_0_}%b %(!.$PR_RED#.$PR_GREEN$)$PR_NO_COLOR "
-export RPS1="%1v $PR_LIGHT_RED%D{%H:%M:%S %m/%d}$PR_NO_COLOR"
+add-zsh-hook precmd title_precmd
+add-zsh-hook precmd vcs_info # update VCS info in prompt
+
+## setup vi mode
+function zle-line-init zle-keymap-select {
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+#changing mode clobbers the keybinds, so store the keybinds before and execute them after
+binds=`bindkey -L`
+bindkey -v
+for bind in ${(@f)binds}; do eval $bind; done
+unset binds
+
+function vi_mode_prompt_info() {
+    local indicator="%{$fg[yellow]%}--NORMAL--%{$reset_color%}"
+    echo "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
+}
+
+export PS1="%(1j.%{$fg[yellow]%}⚙ .)%(!.%{$fg[red]%}.%{$fg[green]%})%n%{$fg_bold[white]%}@%b%{$fg[blue]%}%m%{$fg_bold[cyan]%}:%5~%b \${vcs_info_msg_0_}%b %(!.%{$fg[red]%}#.%{$fg[green]%}$)%{$reset_color%} "
+
+function build_prompt () {
+    local prompt
+    local sep='⮀'
+    prompt="%{%K{black}%}%{%F{default}%}%(1j.%{%F{yellow}%}⚙ .) "
+    prompt+="%(!.%{%K{red}%}.)%n@%m "
+    prompt+="%{%K{blue}%}%{%F{black}%}$sep "
+    prompt+="%5~ "
+
+    if [[ -n $vcs_info_msg_0_ ]]; then
+        prompt+="%{%F{blue}%}%{%K{green}%}$sep "
+        prompt+="$vcs_info_msg_0_ "
+        prompt+="%{%F{green}%}%{%K{default}%}$sep%{%k%f%} "
+    else
+        prompt+="%{%K{default}%}%{%F{blue}%}$sep%{%k%f%} "
+    fi
+
+    echo -ne $prompt
+}
+
+export PS1="%{%f%b%k%}\$(build_prompt)"
+#export PS1="%{%K{black}%}%{%F{default}%}%(1j.%{%F{yellow}%}⚙ .)
+
+export RPS1="\$(vi_mode_prompt_info) %{$fg_bold[red]%}%D{%H:%M:%S %m/%d}%{$reset_color%}"
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
+# recompile cache files
 autoload -U zrecompile
 [ -f $ZDOTDIR/.zshrc ]             && zrecompile -q -p $ZDOTDIR/.zshrc
 [ -f $ZDOTDIR/.zcompdump ]         && zrecompile -q -p $ZDOTDIR/.zcompdump
