@@ -196,6 +196,9 @@ unset binds
 function build_prompt () {
     local prompt="%{$reset_color%}"
     local sep='⮀'
+    if is-at-least 4.3.11; then else
+        sep=''
+    fi
     # begin | bg job indicator
     prompt+="%{$fg[default]$bg[black]%}%(1j. %{$fg[yellow]%}⚙%{$fg[default]%}.) "
     # who@where with "who" colored red if root
@@ -219,7 +222,7 @@ function build_prompt () {
 
 function vi_mode_prompt_info() {
     local indicator
-    if is-at-least 4.3.0; then
+    if is-at-least 4.3.11; then
         indicator=" %{$reset_color%}%{$fg[red]$bg[black]%}⮂%{$fg[black]$bg[red]%} NORMAL "
     else
         indicator=" %{$fg[black]$bg[red]%} NORMAL "
@@ -228,7 +231,7 @@ function vi_mode_prompt_info() {
 }
 
 export PS1='$(build_prompt)'
-if is-at-least 4.3.0; then
+if is-at-least 4.3.11; then
     RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
 else
     RPS1="%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
