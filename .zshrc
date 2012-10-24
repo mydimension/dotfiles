@@ -218,12 +218,22 @@ function build_prompt () {
 }
 
 function vi_mode_prompt_info() {
-    local indicator=" %{$reset_color%}%{$fg[red]$bg[black]%}⮂%{$fg[black]$bg[red]%} NORMAL "
+    local indicator
+    if is-at-least 4.3.0; then
+        indicator=" %{$reset_color%}%{$fg[red]$bg[black]%}⮂%{$fg[black]$bg[red]%} NORMAL "
+    else
+        indicator=" %{$fg[black]$bg[red]%} NORMAL "
+    fi
     echo -ne "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
 }
 
 export PS1='$(build_prompt)'
-export RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
+if is-at-least 4.3.0; then
+    RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
+else
+    RPS1="%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
+fi
+export RPS1
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
