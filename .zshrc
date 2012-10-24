@@ -154,10 +154,10 @@ zstyle '*' single-ignored show
 # VCS info in prompt
 zstyle ':vcs_info:*' enable git svn hg bzr cvs
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' stagedstr   "✔"  # -> %c
-zstyle ':vcs_info:*' unstagedstr "±"  # -> %u
+zstyle ':vcs_info:*' get-revision      true
 if is-at-least 4.3.11; then
+    zstyle ':vcs_info:*' stagedstr     " %{$fg[cyan]%}✔%{$fg[black]%}"  # -> %c
+    zstyle ':vcs_info:*' unstagedstr   " %{$fg[red]%}±%{$fg[black]%}"   # -> %u
     zstyle ':vcs_info:*' formats       "⭠ %b%c%u"
     zstyle ':vcs_info:*' actionformats "⭠ %b%c%u|%a"
 else
@@ -193,32 +193,37 @@ bindkey -v
 for bind in ${(@f)binds}; do eval $bind; done
 unset binds
 
-function vi_mode_prompt_info() {
-    local indicator="%{$fg[yellow]%}--NORMAL--%{$reset_color%}"
-    echo "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
-}
-
 function build_prompt () {
-    local prompt
+    local prompt="%{$reset_color%}"
     local sep='⮀'
-    prompt="%{%F{default}%K{black}%}%(1j. %{%F{yellow}%}⚙%{%F{default}%}.) "
-    prompt+="%(!.%{%F{red}%}.)%n%{%F{white}%}@%{%F{default}%}%m "
-    prompt+="%{%F{black}%K{blue}%}$sep %5~ "
+    # begin | bg job indicator
+    prompt+="%{$fg[default]$bg[black]%}%(1j. %{$fg[yellow]%}⚙%{$fg[default]%}.) "
+    # who@where with "who" colored red if root
+    prompt+="%(!.%{$fg[red]%}.)%n%{$fg[white]%}@%{$fg[default]%}%m "
+    # up to last five path segments
+    prompt+="%{$fg[black]$bg[blue]%}$sep %5~ "
 
     if [[ -n $vcs_info_msg_0_ ]]; then
-        prompt+="%{%F{blue}%}%{%K{green}%}$sep%{%F{black}%}"
+        # join up VCS info
+        prompt+="%{$fg[blue]$bg[green]%}$sep%{$fg[black]%}"
         prompt+=" $vcs_info_msg_0_ "
-        prompt+="%{%F{green}%}%{%K{default}%}$sep%{%k%f%} "
+        # tag the prompt and close it off
+        prompt+="%{$fg[green]$bg[default]%}$sep%{$reset_color%} "
     else
-        prompt+="%{%F{blue}%K{default}%}$sep%{%k%f%} "
+        # tag the prompt and close it off
+        prompt+="%{$fg[blue]$bg[default]%}$sep%{$reset_color%} "
     fi
 
     echo -ne $prompt
 }
 
-export PS1="%{%f%b%k%}\$(build_prompt)"
+function vi_mode_prompt_info() {
+    local indicator=" %{$reset_color%}%{$fg[red]$bg[black]%}⮂%{$fg[black]$bg[red]%} NORMAL "
+    echo -ne "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
+}
 
-export RPS1="\$(vi_mode_prompt_info) %{$fg_bold[red]%}%D{%H:%M:%S %m/%d}%{$reset_color%}"
+export PS1='$(build_prompt)'
+export RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
