@@ -34,3 +34,5 @@
 [tig]
 	line-graphics = utf-8
     tab-size = 4
+[push]
+	default = simple
