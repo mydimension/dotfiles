@@ -1,26 +1,26 @@
 [core]
-	autocrlf = input
-	editor = /usr/bin/env vim
+    autocrlf = input
+    editor = /usr/bin/env vim
 [user]
-	name = William Cox
-	email = wcox@blackducksoftware.com
+    name = William Cox
+    email = wcox@blackducksoftware.com
 [alias]
-	co = commit
-	st = status
+    co = commit
+    st = status
     cko = checkout
 [color]
-	branch = auto
-	diff = auto
-	grep = auto
-	interactive = auto
+    branch = auto
+    diff = auto
+    grep = auto
+    interactive = auto
     showbranch = auto
-	status = auto
+    status = auto
     ui = auto
 [diff]
     tool = vimdiff
     gui = opendiff
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
 [merge]
     tool = threesome
     gui = opendiff
@@ -32,7 +32,7 @@
     cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
 [tig]
-	line-graphics = utf-8
+    line-graphics = utf-8
     tab-size = 4
 [push]
-	default = simple
+    default = simple
