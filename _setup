@@ -4,17 +4,20 @@ use strict;
 use warnings;
 
 my @files = qw(
-    bashrc
-    zshenv
     aliasrc
+    bashrc
     dirsrc
-    inputrc
-    perltidyrc
-    screenrc
     gitconfig
-    tmux.conf
-    psqlrc
+    inputrc
+    pentadactyl
     pentadactylrc
+    perltidyrc
+    prompt
+    psqlrc
+    screenrc
+    tmux.conf
+    urlview
+    zshenv
 );
 
 foreach (@files) {
