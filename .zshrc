@@ -1,6 +1,6 @@
 [ !$_LOADED ] && source ~/.zshenv
 
-# do not prodice coredumps
+# do not produce coredumps
 ulimit -S -c 0
 
 # need this for version scoping
