@@ -6,6 +6,7 @@ set guioptions-=rb
 set popups=tab,resized
 set complete=slfS
 set newtab+=help
+set activate+=links
 set hintkeys=asdfghjkl
 set passkeys+='google\.com\/reader':jkraevm?
 set passkeys+='mail\.google\.com/mail':c/jkhnpouelxsfra#`[]z?\*nrgidIU+-=<Tab><Return>,gi
