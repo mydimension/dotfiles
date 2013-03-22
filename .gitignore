@@ -1,6 +1,7 @@
 .zcompdump
 *.zwc*
-pentadactyl/info/*
+pentadactyl/info/default/*
+!pentadactyl/info/default/quickmarks
 mutt/*.pyc
 mutt/temp/*
 !mutt/temp/.gitignore
