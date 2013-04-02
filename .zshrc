@@ -47,6 +47,8 @@ autoload -U compinit && compinit   # initialize completion system
 autoload colors zsh/terminfo       # color arrays
 autoload -U add-zsh-hook           # event hook system
 autoload -U vcs_info               # robust scm info
+autoload -U url-quote-magic        # dynamic escaping of url characters
+    zle -N self-insert url-quote-magic
 
 # bring in the pretty colors
 if [[ "$terminfo[colors]" -ge 8 ]]; then
@@ -238,6 +240,11 @@ fi
 export PS1='$(build_prompt)' RPS1
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
+
+if [[ -x /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh ]]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
+fi
 
 # recompile cache files
 autoload -U zrecompile

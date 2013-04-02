@@ -3,6 +3,7 @@
 [ -d /opt/local/libexec/gnubin ] && PATH=/opt/local/libexec/gnubin:$PATH
 [ -d ~/bin                     ] && PATH=~/bin:$PATH
 [ -d ~/.rvm/bin                ] && PATH=$PATH:~/.rvm/bin
+[ -d /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin ] && PATH=/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
 
 export PATH
 export PAGER=less
