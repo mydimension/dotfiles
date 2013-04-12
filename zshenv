@@ -3,6 +3,8 @@
 [ -d /opt/local/libexec/gnubin ] && PATH=/opt/local/libexec/gnubin:$PATH
 [ -d ~/bin                     ] && PATH=~/bin:$PATH
 [ -d ~/.rvm/bin                ] && PATH=$PATH:~/.rvm/bin
+[ -d /opt/local/libexec/perl5.14/sitebin ] && PATH=/opt/local/libexec/perl5.14/sitebin:$PATH
+[ -d /opt/local/libexec/perl5.16/sitebin ] && PATH=/opt/local/libexec/perl5.16/sitebin:$PATH
 [ -d /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin ] && PATH=/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
 
 export PATH
