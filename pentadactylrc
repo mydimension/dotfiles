@@ -13,7 +13,7 @@ set passkeys+='mail\.google\.com/mail':c/jkhnpouelxsfra#`[]z?\*nrgidIU+-=<Tab><R
 set passkeys+='play\.google\.com/music':<Space>/=-<Right><Left>?
 set passkeys+='www\.pandora\.com':<Space><Right><Left>+-<Up><Down>
 set passkeys+='netvibes\.com':jkl<Up><Down><Left><Right><Space>
-set passkeys+='feedly\.com/home':jknpovmxser,gm,ga,gg
+set passkeys+='cloud\.feedly\.com/':jknpovmxser,gm,ga,gg
 set tabclose=opener,previous,left
 set pageinfo+=hH
 
