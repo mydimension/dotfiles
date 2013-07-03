@@ -11,8 +11,8 @@ alias sshpass='ssh -o preferredauthentications=password'
 
 [ "$OSTYPE" != 'darwin10.0' ] && alias w='w -u'
 
-[ -f /Applications/MacVim.app/Contents/MacOS/Vim ] &&
-	alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
+[ -f /Applications/MacPorts/MacVim.app/Contents/MacOS/Vim ] &&
+	alias gvim="/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g"
 
 alias g='gvim --remote-tab-silent'
 

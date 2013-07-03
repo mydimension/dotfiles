@@ -18,6 +18,7 @@ export HISTFILE=~/.zhistory
 export HISTSIZE=1000
 export SAVEHIST=1000
 export HOSTNAME=`hostname`
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 
