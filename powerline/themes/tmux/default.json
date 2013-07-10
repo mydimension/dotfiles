@@ -9,13 +9,6 @@
         },
         "date": {
             "before": "⌚ "
-        },
-        "email_imap_alert": {
-            "before": "✉ ",
-            "args": {
-                "username": "",
-                "password": ""
-            }
         }
     },
     "segments": {
