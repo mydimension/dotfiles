@@ -14,6 +14,7 @@ set passkeys+='play\.google\.com/music':<Space>/=-<Right><Left>?
 set passkeys+='www\.pandora\.com':<Space><Right><Left>+-<Up><Down>
 set passkeys+='netvibes\.com':jkl<Up><Down><Left><Right><Space>
 set passkeys+='cloud\.feedly\.com/':jknpovmxser,gm,ga,gg
+set passkeys+='feedly\.com/':jknpovmxser,gm,ga,gg
 set tabclose=opener,previous,left
 set pageinfo+=hH
 
