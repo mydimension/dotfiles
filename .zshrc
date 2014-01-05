@@ -195,53 +195,7 @@ bindkey -v
 for bind in ${(@f)binds}; do eval $bind; done
 unset binds
 
-function build_prompt () {
-    local prompt="%{$reset_color%}" sep='⮀' job='⚙'
-    if is-at-least 4.3.11; then else
-        sep='' job='*'
-    fi
-    # begin | bg job indicator
-    prompt+="%{$fg[default]$bg[black]%}%(1j. %{$fg[yellow]%}$job%{$fg[default]%}.) "
-    # who@where with "who" colored red if root
-    prompt+="%(!.%{$fg[red]%}.)%n%{$fg[white]%}@%{$fg[default]%}%m "
-    # up to last five path segments
-    prompt+="%{$fg[black]$bg[blue]%}$sep %5~ "
-
-    if [[ -n $vcs_info_msg_0_ ]]; then
-        # join up VCS info
-        prompt+="%{$fg[blue]$bg[green]%}$sep%{$fg[black]%}"
-        prompt+=" $vcs_info_msg_0_ "
-        # tag the prompt and close it off
-        prompt+="%{$fg[green]$bg[default]%}$sep%{$reset_color%} "
-    else
-        # tag the prompt and close it off
-        prompt+="%{$fg[blue]$bg[default]%}$sep%{$reset_color%} "
-    fi
-
-    echo -ne $prompt
-}
-
-function vi_mode_prompt_info() {
-    local indicator
-    if is-at-least 4.3.11; then
-        indicator=" %{$reset_color%}%{$fg[red]$bg[black]%}⮂%{$fg[black]$bg[red]%} NORMAL "
-    else
-        indicator=" %{$fg[black]$bg[red]%} NORMAL "
-    fi
-    echo -ne "${${KEYMAP/vicmd/$indicator}/(main|viins)/}"
-}
-
-if is-at-least 4.3.11; then
-    RPS1="%{$fg[black]%}⮂%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
-else
-    RPS1="%{$fg_bold[red]$bg[black]%}%D{%H:%M:%S %m/%d}\$(vi_mode_prompt_info)%{$reset_color%}"
-fi
-
-if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]; then
-    source /opt/local/Library/Frameworks/Python.framework/Versions/Current/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-else
-    export PS1='$(build_prompt)' RPS1
-fi
+source $HOME/dotfiles/promptline.sh
 
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
