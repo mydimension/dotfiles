@@ -7,7 +7,7 @@
 [ -f /etc/bashrc ]         && . /etc/bashrc
 
 # source a local bashrc, if any
-[ -f ~/.bashrc.local ] && . ~/.bashrc.local 
+[ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
 ulimit -S -c 0
 set -o notify
@@ -41,9 +41,9 @@ HISTFILESIZE=2000
 #stty -ixon
 
 function function_exists {
-	[ -z "$1" ] && return 1
-	declare -F "$1" >/dev/null 2>&1
-	return $?
+    [ -z "$1" ] && return 1
+    declare -F "$1" >/dev/null 2>&1
+    return $?
 }
 
 export HISTIGNORE="&:ls:ll:lll:w"
@@ -56,16 +56,24 @@ export EDITOR=vim
 # implement directory history
 [ -f ~/.dirsrc ] && . ~/.dirsrc
 
+function set_window_title {
+    case $TERM in
+        (xterm*|rxvt*) echo -ne "\033]0; ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007" ;;
+        (screen*)      echo -ne "\033k ${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\" ;;
+    esac
+}
+
 source $HOME/dotfiles/promptline.sh
+PROMPT_COMMAND+='; set_window_title'
 
 # set the window title
 function xtitle () {
-	case "$TERM" in
-		*term | rxvt)
-			echo -n -e "\033]0;$*\007" ;;
-		*)
-			;;
-	esac
+    case "$TERM" in
+        *term | rxvt)
+            echo -n -e "\033]0;$*\007" ;;
+        *)
+            ;;
+    esac
 }
 
 #=======================================================================
@@ -79,8 +87,8 @@ function xtitle () {
 #=======================================================================
 
 if [ "${BASH_VERSION%.*}" \< "2.05" ]; then
-	echo "You will need to upgrade to version 2.05 for programmable completion"
-	return
+    echo "You will need to upgrade to version 2.05 for programmable completion"
+    return
 fi
 
 [ -f /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
@@ -89,14 +97,14 @@ fi
 # this overrides the in-built function to strip control characters
 __git_list_all_commands ()
 {
-	local i IFS=" "$'\n'
-	for i in $(git help -a|egrep --color=never '^  [a-zA-Z0-9]')
-	do
-		case $i in
-		*--*)             : helper pattern;;
-		*) echo $i;;
-		esac
-	done
+    local i IFS=" "$'\n'
+    for i in $(git help -a|egrep --color=never '^  [a-zA-Z0-9]')
+    do
+        case $i in
+        *--*)             : helper pattern;;
+        *) echo $i;;
+        esac
+    done
 }
 
 shopt -s extglob
