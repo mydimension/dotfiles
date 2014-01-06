@@ -56,7 +56,7 @@ export EDITOR=vim
 # implement directory history
 [ -f ~/.dirsrc ] && . ~/.dirsrc
 
-[ -f ~/.prompt ] && . ~/.prompt
+source $HOME/dotfiles/promptline.sh
 
 # set the window title
 function xtitle () {
