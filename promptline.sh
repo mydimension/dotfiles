@@ -69,7 +69,7 @@ function __promptline_cwd {
   local cwd="${PWD/#$HOME/~}"
   local dir_limit=3
   local parts
-  local dir_sep="  "
+  local dir_sep="/"
   local truncation="⋯"
 
   # get first char of the path, i.e. tilda or slash
