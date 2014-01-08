@@ -46,7 +46,6 @@ zmodload zsh/complist              # stylin completion
 autoload -U compinit && compinit   # initialize completion system
 autoload colors zsh/terminfo       # color arrays
 autoload -U add-zsh-hook           # event hook system
-autoload -U vcs_info               # robust scm info
 autoload -U url-quote-magic        # dynamic escaping of url characters
     zle -N self-insert url-quote-magic
 
@@ -80,9 +79,6 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*:processes-names' command 'ps -awxho command'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
-
-# Completion Styles
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 # list of completers to use
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
@@ -153,32 +149,17 @@ zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
 
-# VCS info in prompt
-zstyle ':vcs_info:*' enable git svn hg bzr cvs
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' get-revision      true
-if is-at-least 4.3.11; then
-    zstyle ':vcs_info:*' stagedstr     " %{$fg[cyan]%}✔%{$fg[black]%}"  # -> %c
-    zstyle ':vcs_info:*' unstagedstr   " %{$fg[red]%}±%{$fg[black]%}"   # -> %u
-    zstyle ':vcs_info:*' formats       "⭠ %b%c%u"
-    zstyle ':vcs_info:*' actionformats "⭠ %b%c%u|%a"
-else
-    zstyle ':vcs_info:*' formats       "%b"
-    zstyle ':vcs_info:*' actionformats "%b|%a"
-fi
-
 # run before each prompt re-paint
 title_precmd() {
     # change terminal title
     case $TERM in
         (xterm*|rxvt*) echo -ne "\033]0; $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\007" ;;
-        (screen*)     echo -ne "\033k $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"  ;;
+        (screen*)      echo -ne "\033k $USER@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\" ;;
     esac
 }
 
 function precmd () {
     title_precmd
-    vcs_info # update VCS info in prompt
 }
 
 ## setup vi mode
@@ -200,7 +181,6 @@ source $HOME/dotfiles/promptline.sh
 export SPROMPT='zsh: correct '\''%R'\'' to '\''%r'\'' [(n)o (y)es (a)bort (e)dit]? '
 
 if [[ -x /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh ]]; then
-    export WORKON_HOME=$HOME/.virtualenvs
     source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
 fi
 
