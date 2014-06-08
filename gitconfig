@@ -3,7 +3,7 @@
     editor = /usr/bin/env vim
 [user]
     name = William Cox
-    email = wcox@blackducksoftware.com
+    email = mydimension@gmail.com
 [alias]
     co = commit
     st = status
