@@ -67,44 +67,34 @@ function __promptline_vcs_branch {
   return 1
 }
 function __promptline_cwd {
-  local cwd="${PWD/#$HOME/~}"
-  local dir_limit=3
-  local parts
-  local dir_sep="/"
+  local dir_limit="3"
   local truncation="⋯"
-
-  # get first char of the path, i.e. tilda or slash
-  if [[ -n ${ZSH_VERSION-} ]]; then
-    local root_char=$cwd[1,1]
-  else
-    local root_char=${cwd::1}
-  fi
-
-  # cleanup leading tilda and slash. replace slashes with spaces
-  cwd="${cwd#\~}"
-  cwd="${cwd#\/}"
-  cwd=${cwd//\// }
-
-  if [[ -n ${ZSH_VERSION-} ]]; then
-    parts=($root_char ${=cwd})
-  else
-    parts=($root_char $cwd)
-  fi
-
-  # truncate dirs to the limit
-  local parts_count=${#parts[@]}
-  if [ $parts_count -gt $dir_limit ] && [ $dir_limit -gt -0 ]; then
-    parts=($truncation ${parts[@]:(-3)})
-  fi
-
-  # join the dirs with the separator
+  local first_char
+  local part_count=0
   local formatted_cwd=""
-  for part in "${parts[@]}"; do
-    formatted_cwd="$formatted_cwd$dir_sep$part"
-  done;
-  formatted_cwd="${formatted_cwd#$dir_sep}"
+  local dir_sep="/"
+  local tilde="~"
 
-  printf "%s" "$formatted_cwd"
+  local cwd="${PWD/#$HOME/$tilde}"
+
+  # get first char of the path, i.e. tilde or slash
+  [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
+
+  # remove leading tilde
+  cwd="${cwd#\~}"
+
+  while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
+    # pop off last part of cwd
+    local part="${cwd##*/}"
+    cwd="${cwd%/*}"
+
+    formatted_cwd="$dir_sep$part$formatted_cwd"
+    part_count=$((part_count+1))
+
+    [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
+  done
+
+  printf "%s" "$first_char$formatted_cwd"
 }
 function __promptline_left_prompt {
   local slice_prefix slice_empty_prefix slice_joiner slice_suffix is_prompt_empty=1
@@ -223,5 +213,7 @@ if [[ -n ${ZSH_VERSION-} ]]; then
     precmd_functions+=(__promptline)
   fi
 else
-  PROMPT_COMMAND=__promptline
+  if [[ ! "$PROMPT_COMMAND" == *__promptline* ]]; then
+    PROMPT_COMMAND='__promptline;'$'\n'"$PROMPT_COMMAND"
+  fi
 fi
