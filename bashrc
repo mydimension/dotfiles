@@ -63,8 +63,8 @@ function set_window_title {
     esac
 }
 
+PROMPT_COMMAND+='set_window_title;'
 source $HOME/dotfiles/promptline.sh
-PROMPT_COMMAND+='; set_window_title'
 
 # set the window title
 function xtitle () {
