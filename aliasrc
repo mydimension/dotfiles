@@ -121,3 +121,4 @@ export PAGER=less
 export LESSOPEN='| lesspipe.sh %s'
 export LESS='-i -w -z-4 -g -M -X -F -R -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
+function gi() { curl http://www.gitignore.io/api/\$@ ;}
