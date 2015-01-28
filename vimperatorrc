@@ -1,0 +1,13 @@
+colorscheme solarized_dark
+
+set gui=none
+set gui=tabs,addons
+set complete=slfS
+" set activate+=links
+set hintchars=asdfghjkl
+
+ignorekeys add -except=t,d feedly\.com
+
+map d :tabclose -select lastactive<cr>
+
+" vim: set ft=vimperator:

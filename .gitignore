@@ -2,6 +2,8 @@
 *.zwc*
 pentadactyl/info/default/*
 !pentadactyl/info/default/quickmarks
+vimperator/info/default/*
+!vimperator/info/default/quickmarks
 mutt/*.pyc
 mutt/temp/*
 !mutt/temp/.gitignore

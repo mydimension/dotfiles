@@ -17,6 +17,8 @@ my @files = qw(
     screenrc
     tmux.conf
     urlview
+    vimperator
+    vimperatorrc
     zshenv
 );
 
