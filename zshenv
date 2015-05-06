@@ -1,12 +1,18 @@
-[ -d /opt/local/bin            ] && PATH=/opt/local/bin:$PATH
-[ -d /opt/local/sbin           ] && PATH=/opt/local/sbin:$PATH
-[ -d /opt/local/libexec/gnubin ] && PATH=/opt/local/libexec/gnubin:$PATH
-[ -d ~/bin                     ] && PATH=~/bin:$PATH
-[ -d ~/.rvm/bin                ] && PATH=$PATH:~/.rvm/bin
-[ -d /opt/local/libexec/perl5.12/sitebin ] && PATH=/opt/local/libexec/perl5.12/sitebin:$PATH
-[ -d /opt/local/libexec/perl5.14/sitebin ] && PATH=/opt/local/libexec/perl5.14/sitebin:$PATH
-[ -d /opt/local/libexec/perl5.16/sitebin ] && PATH=/opt/local/libexec/perl5.16/sitebin:$PATH
-[ -d /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin ] && PATH=/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
+paths=(
+    "/opt/local/bin"
+    "/opt/local/sbin"
+    "/opt/local/libexec/gnubin"
+    "~/bin"
+    "~/.rvm/bin"
+    "/opt/local/libexec/perl5.12/sitebin"
+    "/opt/local/libexec/perl5.14/sitebin"
+    "/opt/local/libexec/perl5.16/sitebin"
+    "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
+)
+
+for p in "${paths[@]}"; do
+    [ -d "$p" ] && PATH="$p${PATH+:}$PATH"
+done
 
 export PATH
 export PAGER=less
