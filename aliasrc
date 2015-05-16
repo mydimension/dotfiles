@@ -3,7 +3,7 @@
 
 alias jobs='jobs -l'
 alias j='jobs'
-export GREP_OPTIONS="--color=always"
+alias grep='grep --color=always'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
 alias vi='vim'
