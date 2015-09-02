@@ -8,7 +8,7 @@ if [ -d ~/dotfiles ]; then
     cd -
 else
     git clone --quiet --recursive https://github.com/mydimension/dotfiles.git ~/dotfiles
-    for d in "aliasrc bashrc gitconfig inputrc perltidyrc psqlrc tmux.conf zshenv"; do
+    for d in aliasrc bashrc gitconfig inputrc perltidyrc psqlrc tmux.conf zshenv; do
         ln -sf "dotfiles/$d" "~/.$d"
     done
 fi
