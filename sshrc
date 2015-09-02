@@ -1,6 +1,7 @@
 # vim: set ft=sh:
 
 if [ -d ~/dotfiles ]; then
+    git -C ~/dotfiles checkout -- tmuxline.conf
     git -C ~/dotfiles pull --quiet
     git -C ~/dotfiles submodule --quiet update --init
 else
