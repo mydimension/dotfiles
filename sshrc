@@ -1,0 +1,21 @@
+# vim: set ft=sh:
+
+if [ -d ~/dotfiles ]; then
+    git -C ~/dotfiles pull --quiet
+    git -C ~/dotfiles submodule --quiet update --init
+else
+    git clone --quiet --recursive https://github.com/mydimension/dotfiles.git ~/dotfiles
+    for d in "aliasrc bashrc gitconfig inputrc perltidyrc psqlrc tmux.conf zshenv"; do
+        ln -sf dotfiles/$d ~/.$d
+    done
+fi
+
+if [ -d ~/.vim ]; then
+    git -C ~/.vim pull --quiet
+    git -C ~/.vim submodule --quiet update --init
+else
+    git clone --quiet --recursive https://github.com/mydimension/dotfiles.git ~/.vim
+    ln -sf .vim/vimrc ~/.vimrc
+fi
+
+exec -l $SHELL -i
