@@ -184,7 +184,7 @@ if [[ -x /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/vir
     source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
 fi
 
-[ -r ~/dotfile/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # recompile cache files
 autoload -U zrecompile
