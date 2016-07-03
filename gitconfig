@@ -12,10 +12,13 @@
     branch = auto
     diff = auto
     grep = auto
+    pager = true
     interactive = auto
     showbranch = auto
     status = auto
     ui = auto
+[help]
+    autocorrect = 3
 [diff]
     tool = vimdiff
     gui = opendiff
@@ -34,6 +37,10 @@
 [tig]
     line-graphics = utf-8
     tab-size = 4
+[tig "bind"]
+    main = T !@git tag %(prompt) %(commit)
+[fetch]
+    prune = true
 [push]
     default = simple
 [filter "media"]

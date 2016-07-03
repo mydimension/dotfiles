@@ -7,6 +7,7 @@ paths=(
     "/opt/local/libexec/perl5.12/sitebin"
     "/opt/local/libexec/perl5.14/sitebin"
     "/opt/local/libexec/perl5.16/sitebin"
+    "/opt/local/libexec/perl5.22/sitebin"
     "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
 )
 
