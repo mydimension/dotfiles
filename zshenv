@@ -2,8 +2,8 @@ paths=(
     "/opt/local/bin"
     "/opt/local/sbin"
     "/opt/local/libexec/gnubin"
-    "~/bin"
-    "~/.rvm/bin"
+    "$HOME/bin"
+    "$HOME/.rvm/bin"
     "/opt/local/libexec/perl5.12/sitebin"
     "/opt/local/libexec/perl5.14/sitebin"
     "/opt/local/libexec/perl5.16/sitebin"
@@ -28,6 +28,7 @@ export HOSTNAME=`hostname`
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 typeset -U path manpath # remove duplicate entries
 
