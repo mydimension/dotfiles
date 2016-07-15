@@ -4,6 +4,7 @@
 [user]
     name = William Cox
     email = mydimension@gmail.com
+	signingkey = 8B486FB8
 [alias]
     co = commit
     st = status
@@ -51,3 +52,5 @@
 	smudge = git-lfs smudge %f
 	required = true
 	clean = git-lfs clean %f
+[commit]
+	gpgsign = true
