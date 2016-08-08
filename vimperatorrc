@@ -3,11 +3,24 @@ colorscheme solarized_dark
 set gui=none
 set gui=tabs,addons
 set complete=slfS
-" set activate+=links
 set hintchars=asdfghjkl
+set popups=tab,resized
 
 ignorekeys add -except=t,d feedly\.com
 
 map d :tabclose -select lastactive<cr>
+
+" Toggle nav bar
+:js << EOF
+function toggle_navbar() {
+    if (options['toolbars'].includes('nonavigation')) {
+        options['toolbars'] = 'navigation';
+    } else {
+        options['toolbars'] = 'nonavigation';
+    }
+}
+EOF
+
+map <silent> <C-F9> :js toggle_navbar()<CR>
 
 " vim: set ft=vimperator:
