@@ -3,7 +3,9 @@ colorscheme solarized_dark
 set gui=none
 set gui=tabs,addons
 set status+=ssl
-set complete=slfS
+" set complete=slfS
+set complete=slS
+" set activate+=links
 set hintchars=asdfghjkl
 set popups=tab,resized
 
