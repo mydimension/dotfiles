@@ -2,6 +2,7 @@ colorscheme solarized_dark
 
 set gui=none
 set gui=tabs,addons
+set status+=ssl
 set complete=slfS
 set hintchars=asdfghjkl
 set popups=tab,resized
@@ -22,5 +23,3 @@ function toggle_navbar() {
 EOF
 
 map <silent> <C-F9> :js toggle_navbar()<CR>
-
-" vim: set ft=vimperator:

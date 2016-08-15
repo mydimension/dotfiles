@@ -24,10 +24,10 @@ xml`<plugin name="statusline-ssl" version="0.0.1"
 (function () {
     if (!highlight.get("StatusLineBroken")) {
         highlight.loadCSS(`
-            StatusLineBroken    color: black; background: #FFa0a0 /* light-red */
-            StatusLineWeak      color: black; background: #FFFFa0 /* light-yellow */
-            StatusLineSecure    color: black; background: #a0a0FF /* light-blue */
-            StatusLineExtended  color: black; background: #a0FFa0 /* light-green */
+            StatusLineBroken    color: #073642; background: #ffffd7;
+            StatusLineWeak      color: #073642; background: #af8700;
+            StatusLineSecure    color: #073642; background: #b58900;
+            StatusLineExtended  color: #073642; background: #859900;
         `);
     }
 
