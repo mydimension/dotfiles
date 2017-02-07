@@ -4,16 +4,15 @@ paths=(
     "/opt/local/libexec/gnubin"
     "$HOME/bin"
     "$HOME/.rvm/bin"
-    "/opt/local/libexec/perl5.12/sitebin"
-    "/opt/local/libexec/perl5.14/sitebin"
-    "/opt/local/libexec/perl5.16/sitebin"
-    "/opt/local/libexec/perl5.22/sitebin"
     "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
 )
 
 for p in "${paths[@]}"; do
     [ -d "$p" ] && PATH="$p${PATH+:}$PATH"
 done
+
+eval $(perl -V:sitebin)
+[ -n $sitebin ] && PATH="$sitebin${PATH+:}$PATH"
 
 export PATH
 export PAGER=less
