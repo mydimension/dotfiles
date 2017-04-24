@@ -20,7 +20,6 @@ if [ -d ~/.vim ]; then
     cd -
 else
     git clone --quiet --recursive https://github.com/mydimension/dotvim ~/.vim
-    ln -sf .vim/vimrc ~/.vimrc
 fi
 
 exec -l $SHELL -i
