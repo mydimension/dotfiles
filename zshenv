@@ -1,4 +1,5 @@
 paths=(
+    "/usr/local/MacGPG2/bin"
     "/opt/local/bin"
     "/opt/local/sbin"
     "/opt/local/libexec/gnubin"
@@ -10,6 +11,11 @@ paths=(
 for p in "${paths[@]}"; do
     [ -d "$p" ] && PATH="$p${PATH+:}$PATH"
 done
+
+if whence go >/dev/null; then
+    export GOPATH=$(go env GOPATH)
+    PATH="$GOPATH${PATH+:}$PATH"
+fi
 
 eval $(perl -V:sitebin)
 [ -n $sitebin ] && PATH="$sitebin${PATH+:}$PATH"
