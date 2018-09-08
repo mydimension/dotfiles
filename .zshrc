@@ -47,7 +47,7 @@ alias tmux='_ssh_auth_save ; export HOSTNAME=$(hostname) ; tmux'
 # 'ls' family
 alias ls="${aliases[ls]:-ls} -v" # natural version number sorting
 alias ll='ls -lh'
-alias la='ls -Al'
+alias la='ll -A'
 alias lx='ll -XB'
 alias lk='ll -Sr'
 alias lt='ll -tr'
