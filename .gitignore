@@ -1,5 +1,6 @@
 .zcompdump
 *.zwc*
+.zhistory
 pentadactyl/info/default/*
 !pentadactyl/info/default/quickmarks
 vimperator/info/default/*
