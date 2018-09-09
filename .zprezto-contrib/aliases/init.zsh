@@ -18,7 +18,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias vi='vim'
 alias sshpass='ssh -o preferredauthentications=password'
 
-[ "$OSTYPE" != darwin* ] && alias w='w -u'
+[[ "$OSTYPE" != darwin* ]] && alias w='w -u'
 
 [ -f /Applications/MacPorts/MacVim.app/Contents/MacOS/Vim ] &&
     alias gvim="/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g"
