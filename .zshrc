@@ -1,4 +1,5 @@
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=false
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}%(!.#.$)❯%f '
 
@@ -59,3 +60,6 @@ source "$ZDOTDIR/.zprezto/runcoms/zshrc"
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+#
+# for debugging
+#set -xuo pipefail
