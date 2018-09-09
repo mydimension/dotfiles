@@ -27,8 +27,8 @@ zstyle ':prezto:load' zmodule 'attr' 'stat' 'termcap'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
+  'local-prompt' \
   'archive' \
-  'fasd' \
   'git' \
   'macports' \
   'ssh' \
@@ -45,7 +45,6 @@ zstyle ':prezto:load' pmodule \
   'gnu-utility' \
   'utility' \
   'completion' \
-  'prompt' \
   'osx' \
   'aliases'
 
@@ -125,7 +124,7 @@ zstyle ':prezto:module:editor' ps-context 'yes'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'powerlevel9k'
+zstyle ':prezto:module:prompt' theme 'p9k'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
@@ -199,7 +198,7 @@ zstyle ':prezto:module:python:virtualenv' initialize 'yes'
 #
 
 # Auto set the tab and window titles.
-zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'always'
 
 # Set the window title format.
 zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
