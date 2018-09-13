@@ -46,6 +46,7 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'osx' \
+  'autosuggestions' \
   'aliases'
 
 #
@@ -53,7 +54,8 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the query found color.
-zstyle ':prezto:module:autosuggestions:color' found ''
+zstyle ':prezto:module:autosuggestions' color 'yes'
+zstyle ':prezto:module:autosuggestions:color' found 'fg=240'
 
 #
 # Completions

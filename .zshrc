@@ -56,6 +56,8 @@ POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
 
 POWERLEVEL9K_STATUS_OK=false
 
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+
 source "$ZDOTDIR/.zprezto/runcoms/zshrc"
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
