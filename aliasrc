@@ -6,7 +6,11 @@ alias j='jobs'
 alias grep='grep --color=always'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
-alias vi='vim'
+if type nvim >/dev/null; then
+    alias vi=nvim
+else
+    alias vi='vim'
+fi
 alias sshpass='ssh -o preferredauthentications=password'
 
 [ "$OSTYPE" != 'darwin10.0' ] && alias w='w -u'
