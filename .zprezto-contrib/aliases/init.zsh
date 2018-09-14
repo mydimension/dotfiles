@@ -15,8 +15,14 @@ alias j='jobs'
 alias grep='grep --color=always'
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
-alias vi='vim'
 alias sshpass='ssh -o preferredauthentications=password'
+
+if type nvim >/dev/null; then
+    alias vi=nvim
+else
+    alias vi=vim
+fi
+
 
 [[ "$OSTYPE" != darwin* ]] && alias w='w -u'
 
