@@ -1,4 +1,5 @@
 .zcompdump
+.zcompcache
 *.zwc*
 .zhistory
 pentadactyl/info/default/*
