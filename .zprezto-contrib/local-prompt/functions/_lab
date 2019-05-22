@@ -372,6 +372,7 @@ function _lab_mr {
       "create:Open a merge request on GitLab"
       "list:List merge requests"
       "merge:Merge an open merge request"
+      "rebase:Rebase an open merge request"
       "show:Describe a merge request"
       "thumb:Thumb operations on merge requests"
     )
@@ -400,6 +401,9 @@ function _lab_mr {
     ;;
   merge)
     _lab_mr_merge
+    ;;
+  rebase)
+    _lab_mr_rebase
     ;;
   show)
     _lab_mr_show
@@ -459,6 +463,12 @@ function _lab_mr_list {
 }
 
 function _lab_mr_merge {
+  _arguments \
+    '1: :__lab_completion_remote' \
+    '2: :__lab_completion_merge_request $words[2]'
+}
+
+function _lab_mr_rebase {
   _arguments \
     '1: :__lab_completion_remote' \
     '2: :__lab_completion_merge_request $words[2]'
