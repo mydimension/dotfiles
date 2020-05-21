@@ -23,6 +23,8 @@
 [diff]
     tool = vimdiff
     gui = opendiff
+    colormoved = default
+    colormovedws = allow-indentation-change
 [branch]
     autosetuprebase = always
 [merge]
