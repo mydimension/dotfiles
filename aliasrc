@@ -4,6 +4,7 @@
 alias jobs='jobs -l'
 alias j='jobs'
 alias grep='grep --color=always'
+alias ag="ag --color-path 35 --color-match '1;35' --color-line-number 32"
 alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
 if type nvim >/dev/null; then
