@@ -2,6 +2,8 @@
 .zcompcache
 *.zwc*
 .zhistory
+.zsh_history
+.zsh_sessions/
 pentadactyl/info/default/*
 !pentadactyl/info/default/quickmarks
 vimperator/info/default/*
