@@ -40,8 +40,8 @@ _ssh_auth_save() {
         ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen/ssh-auth-sock.$HOSTNAME"
     fi
 }
-alias screen='_ssh_auth_save ; export HOSTNAME=$(hostname) ; screen'
-alias tmux='_ssh_auth_save ; export HOSTNAME=$(hostname) ; tmux'
+alias screen='export HOSTNAME=$(hostname) ; _ssh_auth_save ; screen'
+alias tmux='export HOSTNAME=$(hostname) ; _ssh_auth_save ; tmux'
 
 # 'ls' family
 alias ls="${aliases[ls]:-ls} -v" # natural version number sorting
