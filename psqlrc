@@ -2,7 +2,7 @@
 \pset linestyle unicode
 \pset border 2
 \pset null '[null]'
-\set AUTOCOMMIT off
+\set AUTOCOMMIT on
 --\set PROMPT1 '%[%033[1;31m%]%n%[%033[0m%]@%[%033[1;34m%]%/%[%033[0m%]=>%[%033[1;35m%]%x%[%033[0m%] '
 \set PROMPT1 '(%n@%M:%>) %`date +%H:%M:%S` [%/] %x%# '
 \set PROMPT2 ''
