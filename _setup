@@ -6,17 +6,16 @@ use warnings;
 my @files = qw(
     aliasrc
     bashrc
+    dirsrc
     gitconfig
     inputrc
-    pentadactyl
-    pentadactylrc
     perltidyrc
+    prompt
     psqlrc
     screenrc
     sshrc
     tmux.conf
-    vimperator
-    vimperatorrc
+    urlview
     zshenv
 );
 
