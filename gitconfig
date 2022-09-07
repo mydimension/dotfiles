@@ -10,6 +10,7 @@
     co = commit
     st = status
     cko = checkout
+    prune-local = !git branch --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:lstrip=2)%(end)' | xargs -I {} sh -c '[ -n "$(git merge-base $(git branch --show-current) {})" ] && git branch -d {}'
 [color]
     branch = auto
     diff = auto
