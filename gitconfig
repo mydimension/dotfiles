@@ -1,10 +1,10 @@
 [core]
     autocrlf = input
     editor = /usr/bin/env vim
+    include = .gitconfig.local
 [user]
     name = William Cox
     email = mydimension@gmail.com
-	signingkey = 8B486FB8
 [alias]
     co = commit
     st = status
