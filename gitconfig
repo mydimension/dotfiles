@@ -1,7 +1,8 @@
 [core]
     autocrlf = input
     editor = /usr/bin/env vim
-    include = .gitconfig.local
+[include]
+    path = .gitconfig.local
 [user]
     name = William Cox
     email = mydimension@gmail.com
