@@ -1,6 +1,6 @@
 [core]
     autocrlf = input
-    editor = /usr/bin/env vim
+    editor = vi
 [include]
     path = .gitconfig.local
 [user]
@@ -11,6 +11,7 @@
     st = status
     cko = checkout
     prune-local = !git branch --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:lstrip=2)%(end)' | xargs -I {} sh -c '[ -n "$(git merge-base $(git branch --show-current) {})" ] && git branch -d {}'
+    pushd = push -u origin HEAD
 [color]
     branch = auto
     diff = auto
@@ -48,16 +49,16 @@
     prune = true
 [push]
     default = simple
-	followTags = true
+    followTags = true
 [filter "media"]
-	required = true
-	clean = git media clean %f
-	smudge = git media smudge %f
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
 [filter "lfs"]
-	smudge = git-lfs smudge %f
-	required = true
-	clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
+    clean = git-lfs clean %f
 [pull]
-	rebase = true
+    rebase = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
