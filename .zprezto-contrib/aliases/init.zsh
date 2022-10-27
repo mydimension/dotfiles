@@ -10,6 +10,8 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[F"  end-of-line
 bindkey "^[[4~" end-of-line
 
+export LESS="$LESS -F"
+
 alias jobs='jobs -l'
 alias j='jobs'
 alias grep='grep --color=always'
