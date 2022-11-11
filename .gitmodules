@@ -4,6 +4,3 @@
 [submodule ".zprezto-contrib/prompt/external/p9k"]
 	path = .zprezto-contrib/local-prompt/external/p9k
 	url = https://github.com/bhilburn/powerlevel9k.git
-[submodule ".zprezto-contrib/local-prompt/external/powerlevel10k"]
-	path = .zprezto-contrib/local-prompt/external/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k
