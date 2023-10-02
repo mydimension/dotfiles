@@ -53,7 +53,7 @@ alias lc='ls -lcr'
 alias lu='ls -lur'
 alias lt='ls -ltr'
 
-alias tree='tree --dirsfirst -FCI .svn'
+alias tree='tree --dirsfirst -FCI .svn -I .git'
 
 # hex dump a file
 alias hd='od -Ax -tx1z -v'
