@@ -1664,7 +1664,8 @@
   # Show battery in yellow when it's discharging.
   typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=3
   # Battery pictograms going from low to high level of charge.
-  typeset -g POWERLEVEL9K_BATTERY_STAGES='\UF008E\UF007A\UF007B\UF007C\UF007D\UF007E\UF007F\UF0080\UF0081\UF0082\UF0079'
+  # NOTE: extra space '%{ %}' works around render bug of the battery glyph
+  typeset -g POWERLEVEL9K_BATTERY_STAGES=('%{ %}\UF008E' '%{ %}\UF007A' '%{ %}\UF007B' '%{ %}\UF007C' '%{ %}\UF007D' '%{ %}\UF007E' '%{ %}\UF007F' '%{ %}\UF0080' '%{ %}\UF0081' '%{ %}\UF0082' '%{ %}\UF0079')
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
   typeset -g POWERLEVEL9K_BATTERY_BACKGROUND=0
