@@ -1,11 +1,11 @@
 [core]
     autocrlf = input
     editor = vi
-[include]
-    path = .gitconfig.local
 [user]
     name = William Cox
     email = mydimension@gmail.com
+[include]
+    path = .gitconfig.local
 [alias]
     co = commit
     st = status
@@ -55,9 +55,10 @@
     clean = git media clean %f
     smudge = git media smudge %f
 [filter "lfs"]
-    smudge = git-lfs smudge %f
+	smudge = git-lfs smudge -- %f
     required = true
-    clean = git-lfs clean %f
+	clean = git-lfs clean -- %f
+	process = git-lfs filter-process
 [pull]
     rebase = true
 [init]
