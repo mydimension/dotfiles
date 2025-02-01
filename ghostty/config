@@ -1,0 +1,14 @@
+theme = iTerm2 Solarized Dark
+cursor-style = block
+
+# closest match to iTerm2 font sizing
+font-size = 9
+adjust-cell-width = -1
+adjust-cell-height = -2
+
+macos-non-native-fullscreen = visible-menu
+
+macos-option-as-alt = true
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+copy-on-select = true
