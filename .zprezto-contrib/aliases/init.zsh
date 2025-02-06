@@ -14,8 +14,8 @@ export LESS="$LESS -F"
 
 alias jobs='jobs -l'
 alias j='jobs'
+alias k=kubectl
 alias grep='grep --color=always'
-alias view='vi -R'
 alias path='echo -e ${PATH//:/\\n}'
 alias sshpass='ssh -o preferredauthentications=password'
 
@@ -25,6 +25,8 @@ else
     alias vi=vim
 fi
 
+alias vimdiff='vi -d'
+alias view='vi -R'
 
 [[ "$OSTYPE" != darwin* ]] && alias w='w -u'
 
