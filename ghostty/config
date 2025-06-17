@@ -2,13 +2,17 @@ theme = iTerm2 Solarized Dark
 cursor-style = block
 
 # closest match to iTerm2 font sizing
+font-family = Hack Nerd Font Mono
 font-size = 9
+font-thicken = true
+window-inherit-font-size = false
 adjust-cell-width = -1
-adjust-cell-height = -2
+adjust-cell-height = -1
+alpha-blending = linear-corrected
 
-macos-non-native-fullscreen = visible-menu
+macos-non-native-fullscreen = true
 
 macos-option-as-alt = true
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
-copy-on-select = true
+copy-on-select = clipboard
