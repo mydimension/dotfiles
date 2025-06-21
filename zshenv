@@ -21,6 +21,7 @@ paths=(
     "/opt/local/bin"
     "/opt/local/sbin"
     #"/opt/local/libexec/gnubin"
+    "$HOME/.local/bin"
     "$HOME/bin"
     "$HOME/.rvm/bin"
     "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
