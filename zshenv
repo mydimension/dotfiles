@@ -1,6 +1,6 @@
-export LC_ALL='en_US.UTF-8'
-export LANG='en_US.UTF-8'
-export LC_TYPE=C
+#export LC_ALL='en_US.UTF-8'
+#export LANG='en_US.UTF-8'
+#export LC_TYPE=C
 export ZDOTDIR=~/dotfiles
 export HISTFILE=~/.zhistory
 export HISTSIZE=1000
