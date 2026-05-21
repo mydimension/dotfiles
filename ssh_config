@@ -2,12 +2,13 @@
 #    Host *
 #        Include ~/dotfiles/ssh_config
 Host *
-	ForwardAgent yes
-	TCPKeepAlive no
-	ServerAliveInterval 60
-	ServerAliveCountMax 100
-	ControlMaster auto
-	ControlPath ~/.ssh/mux_%C
-	ControlPersist 8h
-	SendEnv LANG
-	PubkeyAcceptedKeyTypes=+ssh-dss
+    ForwardAgent yes
+    TCPKeepAlive no
+    ServerAliveInterval 60
+    ServerAliveCountMax 100
+    ControlMaster auto
+    ControlPath ~/.ssh/mux_%C
+    ControlPersist 8h
+    SendEnv LANG
+    WarnWeakCrypto no-pq-kex
+    #PubkeyAcceptedKeyTypes=+ssh-dss
